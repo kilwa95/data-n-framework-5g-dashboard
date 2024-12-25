@@ -4,6 +4,7 @@ import { EligibilityFilter } from '../components/EligibilityFilter';
 import { EligibilityMap } from '../components/EligibilityMap';
 import { KPITracker } from '../components/KPITracker';
 import { TestTrendChart } from '../components/TestTrendChart';
+import { TestResultsTable } from '../components/TestResultsTable';
 
 // Types pour les données de localisation
 interface Location {
@@ -40,7 +41,7 @@ const mockLocationData = {
       { id: 'd2', name: 'Hauts-de-Seine' },
     ],
     r2: [
-      { id: 'd3', name: 'Rh��ne' },
+      { id: 'd3', name: 'Rhône' },
       { id: 'd4', name: 'Isère' },
     ],
   },
@@ -52,6 +53,29 @@ const mockLocationData = {
     ],
   },
 };
+
+// Données de test pour TestResultsTable
+const mockTestResults = [
+  {
+    id: '1',
+    datetime: '2024-02-20T10:30:00',
+    longitude: 2.3522,
+    latitude: 48.8566,
+    can_subscribe: true,
+    is_ztd: true,
+    foundCoverage: true,
+    cell_1800_coverage: 3,
+    sector_capacity: 'High',
+    max_user: 150,
+    site_name: 'PAR_001',
+    sector: 'S1',
+    active_4gcoverage: true,
+    active_4g_cells: 4,
+    active_5gcoverage: true,
+    active_5g_cells: 2,
+  },
+  // Ajoutez d'autres données de test si nécessaire
+];
 
 export const EligibilityMapPage = () => {
   // État des filtres
@@ -83,6 +107,9 @@ export const EligibilityMapPage = () => {
     Array<{ timestamp: string; value: number }>
   >([]);
   const [isLoadingTrend, setIsLoadingTrend] = useState(false);
+
+  // Nouvel état pour le chargement de la table
+  const [isLoadingTable, setIsLoadingTable] = useState(false);
 
   // Gestionnaire de mise à jour des KPIs
   const updateKPIs = async () => {
@@ -158,6 +185,14 @@ export const EligibilityMapPage = () => {
         <EligibilityMap
           filters={filters}
           className="h-[600px] rounded-lg shadow-lg"
+        />
+
+        {/* Table des résultats */}
+        <TestResultsTable
+          data={mockTestResults}
+          filters={filters}
+          loading={isLoadingTable}
+          className="mt-6"
         />
       </div>
     </div>
