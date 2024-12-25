@@ -3,6 +3,7 @@ import { HierarchyLocationFilter } from '../components/HierarchyLocationFilter';
 import { EligibilityFilter } from '../components/EligibilityFilter';
 import { EligibilityMap } from '../components/EligibilityMap';
 import { KPITracker } from '../components/KPITracker';
+import { TestTrendChart } from '../components/TestTrendChart';
 
 // Types pour les données de localisation
 interface Location {
@@ -39,7 +40,7 @@ const mockLocationData = {
       { id: 'd2', name: 'Hauts-de-Seine' },
     ],
     r2: [
-      { id: 'd3', name: 'Rhône' },
+      { id: 'd3', name: 'Rh��ne' },
       { id: 'd4', name: 'Isère' },
     ],
   },
@@ -74,6 +75,15 @@ export const EligibilityMapPage = () => {
   const [totalTests, setTotalTests] = useState(0);
   const [eligibleTests, setEligibleTests] = useState(0);
 
+  // Nouveaux états pour le graphique de tendance
+  const [frequency, setFrequency] = useState<'hourly' | 'daily' | 'monthly'>(
+    'daily'
+  );
+  const [trendData, setTrendData] = useState<
+    Array<{ timestamp: string; value: number }>
+  >([]);
+  const [isLoadingTrend, setIsLoadingTrend] = useState(false);
+
   // Gestionnaire de mise à jour des KPIs
   const updateKPIs = async () => {
     // Simuler un appel API pour mettre à jour les KPIs
@@ -106,6 +116,16 @@ export const EligibilityMapPage = () => {
             value={eligibleTests}
             refreshInterval={30000}
             onRefresh={async () => eligibleTests}
+          />
+        </div>
+
+        {/* Ajout du graphique de tendance */}
+        <div className="mt-4">
+          <TestTrendChart
+            data={trendData}
+            frequency={frequency}
+            onFrequencyChange={setFrequency}
+            loading={isLoadingTrend}
           />
         </div>
 
