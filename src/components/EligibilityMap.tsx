@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback, useMemo } from 'react';
+import { useState, useCallback } from 'react';
 import {
   MapContainer,
   TileLayer,
@@ -6,232 +6,125 @@ import {
   CircleMarker,
   Tooltip,
   ZoomControl,
-  useMap,
 } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
-import 'leaflet.markercluster/dist/MarkerCluster.css';
-import 'leaflet.markercluster/dist/MarkerCluster.Default.css';
-import { MarkerClusterGroup } from '@changey/react-leaflet-markercluster';
-import '@changey/react-leaflet-markercluster/dist/styles.min.css';
+import departmentsData from '../data/france-departments.json';
 
 interface Location {
   id: string;
+  coordinates: [number, number];
   name: string;
-}
-
-interface MapFilters {
-  region: Location | null;
-  department: Location | null;
-  city: Location | null;
-  eligibility: Record<string, boolean>;
+  data?: Record<string, any>;
 }
 
 interface EligibilityMapProps {
-  filters: MapFilters;
+  filters?: {
+    region: any;
+    department: any;
+    city: any;
+    eligibility: {
+      can_subscribe: boolean;
+      is_ztd: boolean;
+      found_coverage: boolean;
+      sector_capacity: boolean;
+      active_4g: boolean;
+      active_5g: boolean;
+    };
+  };
+  locations?: Location[];
   className?: string;
-  onMarkerClick?: (point: any) => void;
+  onMarkerClick?: (location: Location) => void;
 }
-
-// Composant pour gérer les mises à jour de la carte
-const MapUpdater = ({
-  center,
-  zoom,
-}: {
-  center: [number, number];
-  zoom: number;
-}) => {
-  const map = useMap();
-
-  useEffect(() => {
-    map.setView(center, zoom, { animate: true, duration: 0.8 });
-  }, [map, center, zoom]);
-
-  return null;
-};
 
 export const EligibilityMap = ({
   filters,
+  locations = [],
   className = '',
   onMarkerClick,
 }: EligibilityMapProps) => {
-  const [zoom, setZoom] = useState(6);
-  const [center, setCenter] = useState<[number, number]>([46.603354, 1.888334]); // France center
-  const [activeLayer, setActiveLayer] = useState<
-    'regions' | 'departments' | 'tests'
-  >('regions');
-  const [geoData, setGeoData] = useState(null);
-  const [loading, setLoading] = useState(false);
-  const [hoveredFeature, setHoveredFeature] = useState(null);
+  const [hoveredLocation, setHoveredLocation] = useState<string | null>(null);
 
-  // Styles de base pour la carte
+  // Style de base pour la carte
   const mapStyle = {
     height: '100%',
     width: '100%',
-    borderRadius: '0.75rem',
-    overflow: 'hidden',
   };
 
-  const getLayerStyle = useCallback(
-    (feature: any) => ({
-      fillColor: getColorByEligibilityRate(feature.properties.eligibilityRate),
-      weight: hoveredFeature === feature.id ? 2 : 1,
-      opacity: 0.8,
-      color: '#E5E7EB',
-      fillOpacity: hoveredFeature === feature.id ? 0.8 : 0.6,
-      className: 'transition-all duration-200',
+  // Style pour les départements
+  const departmentStyle = {
+    fillColor: '#f5f5f5',
+    weight: 1,
+    opacity: 1,
+    color: '#e5e7eb',
+    fillOpacity: 0.7,
+  };
+
+  // Style pour les marqueurs
+  const getMarkerStyle = useCallback(
+    (locationId: string) => ({
+      radius: hoveredLocation === locationId ? 8 : 6,
+      fillColor: '#1e88e5',
+      color: '#1e88e5',
+      weight: 1,
+      opacity: 1,
+      fillOpacity: 0.8,
     }),
-    [hoveredFeature]
+    [hoveredLocation]
   );
 
-  const getColorByEligibilityRate = (rate: number) => {
-    return rate > 80
-      ? '#047857'
-      : rate > 60
-        ? '#059669'
-        : rate > 40
-          ? '#10B981'
-          : rate > 20
-            ? '#34D399'
-            : '#6EE7B7';
-  };
-
-  // Optimisation du rendu des marqueurs avec useMemo
-  const markers = useMemo(() => {
-    if (!geoData || activeLayer !== 'tests') return null;
-
-    return geoData.features.map((point: any) => (
-      <CircleMarker
-        key={point.id}
-        center={[point.geometry.coordinates[1], point.geometry.coordinates[0]]}
-        radius={hoveredFeature === point.id ? 8 : 6}
-        pathOptions={{
-          color: point.properties.eligible ? '#047857' : '#DC2626',
-          fillColor: point.properties.eligible ? '#047857' : '#DC2626',
-          fillOpacity: hoveredFeature === point.id ? 1 : 0.8,
-          weight: hoveredFeature === point.id ? 2 : 1,
-          className: 'transition-all duration-200',
-        }}
-        eventHandlers={{
-          click: () => onMarkerClick?.(point),
-          mouseover: () => setHoveredFeature(point.id),
-          mouseout: () => setHoveredFeature(null),
-        }}
-      >
-        <Tooltip
-          className="bg-white shadow-lg rounded-lg border-0 px-4 py-2"
-          opacity={1}
-          permanent={hoveredFeature === point.id}
-        >
-          <div className="text-sm">
-            <h3 className="font-semibold text-gray-900">Test #{point.id}</h3>
-            <div className="mt-1 text-gray-600">
-              <p>Éligible: {point.properties.eligible ? 'Oui' : 'Non'}</p>
-              <p>ZTD: {point.properties.is_ztd ? 'Oui' : 'Non'}</p>
-              <p>Coverage: {point.properties.found_coverage ? 'Oui' : 'Non'}</p>
-            </div>
-          </div>
-        </Tooltip>
-      </CircleMarker>
-    ));
-  }, [geoData, activeLayer, hoveredFeature, onMarkerClick]);
-
-  useEffect(() => {
-    const fetchGeoData = async () => {
-      setLoading(true);
-      try {
-        // Simuler un appel API - à remplacer par votre vraie API
-        const response = await fetch(`/api/${activeLayer}`, {
-          method: 'POST',
-          body: JSON.stringify(filters),
-        });
-        const data = await response.json();
-        setGeoData(data);
-      } catch (error) {
-        console.error('Failed to fetch geo data:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchGeoData();
-  }, [activeLayer, filters]);
-
   return (
-    <div className={`relative rounded-xl overflow-hidden ${className}`}>
+    <div className={`relative ${className}`}>
       <MapContainer
-        center={center}
-        zoom={zoom}
+        center={[46.603354, 1.888334]}
+        zoom={6}
         className="h-[600px] w-full"
         zoomControl={false}
-        attributionControl={false}
+        minZoom={5}
+        maxZoom={9}
         style={mapStyle}
       >
         <ZoomControl position="bottomright" />
-        <MapUpdater center={center} zoom={zoom} />
 
+        {/* Fond de carte neutre */}
         <TileLayer
-          url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}.png"
+          url="https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}.png"
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
         />
 
-        {geoData && activeLayer !== 'tests' && (
-          <GeoJSON
-            data={geoData}
-            style={getLayerStyle}
-            onEachFeature={(feature, layer) => {
-              layer.on({
-                click: () => {
-                  if (activeLayer === 'regions') {
-                    setActiveLayer('departments');
-                    setZoom(8);
-                    setCenter([
-                      feature.properties.center[1],
-                      feature.properties.center[0],
-                    ]);
-                  } else if (activeLayer === 'departments') {
-                    setActiveLayer('tests');
-                    setZoom(12);
-                    setCenter([
-                      feature.properties.center[1],
-                      feature.properties.center[0],
-                    ]);
-                  }
-                },
-                mouseover: (e) => {
-                  setHoveredFeature(feature.id);
-                  const layer = e.target;
-                  layer.setStyle({
-                    fillOpacity: 0.8,
-                    weight: 2,
-                  });
-                },
-                mouseout: (e) => {
-                  setHoveredFeature(null);
-                  const layer = e.target;
-                  layer.setStyle(getLayerStyle(feature));
-                },
-              });
+        {/* Contours des départements */}
+        <GeoJSON data={departmentsData} style={departmentStyle} />
+
+        {/* Points de localisation */}
+        {locations.map((location) => (
+          <CircleMarker
+            key={location.id}
+            center={location.coordinates}
+            {...getMarkerStyle(location.id)}
+            eventHandlers={{
+              click: () => onMarkerClick?.(location),
+              mouseover: () => setHoveredLocation(location.id),
+              mouseout: () => setHoveredLocation(null),
             }}
-          />
-        )}
-
-        {activeLayer === 'tests' && (
-          <MarkerClusterGroup
-            chunkedLoading
-            maxClusterRadius={50}
-            spiderfyOnMaxZoom={true}
-            disableClusteringAtZoom={15}
           >
-            {markers}
-          </MarkerClusterGroup>
-        )}
-      </MapContainer>
+            <Tooltip
+              permanent={hoveredLocation === location.id}
+              direction="top"
+              offset={[0, -10]}
+              opacity={1}
+              className="bg-white shadow-lg rounded-lg border-0 px-3 py-1"
+            >
+              <div className="text-sm font-medium text-gray-900">
+                {location.name}
+              </div>
+            </Tooltip>
+          </CircleMarker>
+        ))}
 
-      {loading && (
-        <div className="absolute inset-0 flex items-center justify-center bg-white/50 backdrop-blur-sm">
-          <div className="w-8 h-8 border-2 border-primary-600 border-t-transparent rounded-full animate-spin" />
+        {/* Signature */}
+        <div className="absolute bottom-2 right-2 z-[1000] text-sm text-gray-500 font-serif">
+          Le Figaro
         </div>
-      )}
+      </MapContainer>
     </div>
   );
 };
