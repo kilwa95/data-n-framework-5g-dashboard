@@ -5,8 +5,18 @@ const meta = {
   title: 'Components/EligibilityMap',
   component: EligibilityMap,
   parameters: {
-    layout: 'centered',
+    layout: 'fullscreen',
+    backgrounds: {
+      default: 'light',
+    },
   },
+  decorators: [
+    (Story) => (
+      <div style={{ height: '100vh', padding: '1rem' }}>
+        <Story />
+      </div>
+    ),
+  ],
   tags: ['autodocs'],
 } satisfies Meta<typeof EligibilityMap>;
 
@@ -28,5 +38,6 @@ export const Default: Story = {
         active_5g: false,
       },
     },
+    className: 'h-[600px]',
   },
 };
