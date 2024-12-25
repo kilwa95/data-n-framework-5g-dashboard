@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import { format, subDays, isAfter, isBefore, parse } from 'date-fns';
 import { fr, enUS } from 'date-fns/locale';
-import './DateRangeSelector.css';
 
 interface DateRangeSelectorProps {
   onChange: (range: { start: Date; end: Date }) => void;
@@ -60,31 +59,50 @@ export const DateRangeSelector = ({
 
       setError(null);
       setDateRange(newRange);
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (error) {
       setError('Invalid date format');
     }
   };
 
   return (
-    <div className={`date-range-selector ${className}`}>
-      <div className="date-range-inputs">
-        <div className="date-input-group">
-          <label htmlFor="start-date">{labels.from}</label>
+    <div
+      className={`p-6 bg-white dark:bg-gray-800 rounded-xl shadow-lg transition-all ${className}`}
+    >
+      <div className="flex flex-col sm:flex-row gap-6">
+        <div className="flex-1">
+          <label
+            htmlFor="start-date"
+            className="block text-sm font-semibold text-gray-600 dark:text-gray-300 mb-2"
+          >
+            {labels.from}
+          </label>
           <input
             id="start-date"
             type="date"
+            className="w-full h-12 px-4 bg-gray-50 dark:bg-gray-700 border-2 border-gray-200 
+                     dark:border-gray-600 rounded-xl text-gray-900 dark:text-white 
+                     focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 
+                     hover:border-primary transition-all"
             value={format(dateRange.start, dateFormat)}
             onChange={(e) => handleDateChange('start', e.target.value)}
             max={format(dateRange.end, dateFormat)}
           />
         </div>
 
-        <div className="date-input-group">
-          <label htmlFor="end-date">{labels.to}</label>
+        <div className="flex-1">
+          <label
+            htmlFor="end-date"
+            className="block text-sm font-semibold text-gray-600 dark:text-gray-300 mb-2"
+          >
+            {labels.to}
+          </label>
           <input
             id="end-date"
             type="date"
+            className="w-full h-12 px-4 bg-gray-50 dark:bg-gray-700 border-2 border-gray-200 
+                     dark:border-gray-600 rounded-xl text-gray-900 dark:text-white 
+                     focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 
+                     hover:border-primary transition-all"
             value={format(dateRange.end, dateFormat)}
             onChange={(e) => handleDateChange('end', e.target.value)}
             min={format(dateRange.start, dateFormat)}
@@ -92,7 +110,14 @@ export const DateRangeSelector = ({
         </div>
       </div>
 
-      {error && <div className="date-range-error">{error}</div>}
+      {error && (
+        <div
+          className="mt-2 p-4 bg-red-50 dark:bg-red-900/20 text-sm text-red-600 
+                      dark:text-red-400 rounded-xl border-l-4 border-red-500"
+        >
+          {error}
+        </div>
+      )}
     </div>
   );
 };
