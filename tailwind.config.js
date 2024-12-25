@@ -10,8 +10,11 @@ export default {
     extend: {
       colors: {
         primary: {
-          DEFAULT: '#1b74e4',
-          hover: '#0a60cc',
+          50: '#f0f9ff',
+          100: '#e0f2fe',
+          600: '#1b74e4',
+          700: '#0a60cc',
+          900: '#0c4a6e',
         },
         facebook: {
           bg: '#F0F2F5',
@@ -23,6 +26,21 @@ export default {
           },
         },
         docs: '#888',
+        success: {
+          DEFAULT: '#10B981',
+          light: '#D1FAE5',
+          dark: '#065F46',
+        },
+        warning: {
+          DEFAULT: '#F59E0B',
+          light: '#FEF3C7',
+          dark: '#92400E',
+        },
+        error: {
+          DEFAULT: '#EF4444',
+          light: '#FEE2E2',
+          dark: '#991B1B',
+        },
       },
       fontFamily: {
         sans: [
@@ -33,6 +51,16 @@ export default {
           'Arial',
           'sans-serif',
         ],
+        display: ['Poppins', 'system-ui', 'Avenir', 'Helvetica', 'Arial', 'sans-serif'],
+      },
+      fontSize: {
+        'display-1': ['3.5rem', { lineHeight: '1.2', letterSpacing: '-0.02em' }],
+        'display-2': ['3rem', { lineHeight: '1.2', letterSpacing: '-0.02em' }],
+        'h1': ['2.5rem', { lineHeight: '1.2', letterSpacing: '-0.02em' }],
+        'h2': ['2rem', { lineHeight: '1.3', letterSpacing: '-0.01em' }],
+        'body-lg': ['1.125rem', { lineHeight: '1.5' }],
+        'body': ['1rem', { lineHeight: '1.5' }],
+        'small': ['0.875rem', { lineHeight: '1.5' }],
       },
       spacing: {
         18: '4.5rem',
