@@ -1,14 +1,5 @@
 import { format } from 'date-fns';
-
-interface DateInputProps {
-  id: string;
-  label: string;
-  value: Date;
-  onChange: (value: string) => void;
-  min?: string;
-  max?: string;
-  dateFormat: string;
-}
+import type { DateInputProps } from '../types';
 
 export const DateInput = ({
   id,

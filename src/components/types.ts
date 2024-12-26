@@ -8,3 +8,13 @@ export interface DateRangeSelectorProps {
       to: string;
     };
   }
+
+  export interface DateInputProps {
+    id: string;
+    label: string;
+    value: Date;
+    onChange: (value: string) => void;
+    min?: string;
+    max?: string;
+    dateFormat: string;
+  }
