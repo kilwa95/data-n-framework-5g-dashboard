@@ -1,17 +1,7 @@
-import { useState, useEffect } from "react";
-import { format, subDays, isAfter, isBefore, parse } from "date-fns";
-import { fr, enUS } from "date-fns/locale";
-
-interface DateRangeSelectorProps {
-  onChange: (range: { start: Date; end: Date }) => void;
-  format?: string;
-  locale?: "fr" | "en";
-  className?: string;
-  labels?: {
-    from: string;
-    to: string;
-  };
-}
+import { useState, useEffect } from 'react';
+import { format, subDays, isAfter, isBefore, parse } from 'date-fns';
+import { fr, enUS } from 'date-fns/locale';
+import type { DateRangeSelectorProps } from './types';
 
 const locales = {
   fr,
@@ -20,10 +10,10 @@ const locales = {
 
 export const DateRangeSelector = ({
   onChange,
-  format: dateFormat = "yyyy-MM-dd",
-  locale = "en",
-  className = "",
-  labels = { from: "From", to: "To" },
+  format: dateFormat = 'yyyy-MM-dd',
+  locale = 'en',
+  className = '',
+  labels = { from: 'From', to: 'To' },
 }: DateRangeSelectorProps) => {
   const [dateRange, setDateRange] = useState({
     start: subDays(new Date(), 30),
@@ -36,7 +26,7 @@ export const DateRangeSelector = ({
     onChange(dateRange);
   }, [dateRange, onChange]);
 
-  const handleDateChange = (type: "start" | "end", value: string) => {
+  const handleDateChange = (type: 'start' | 'end', value: string) => {
     try {
       const newDate = parse(value, dateFormat, new Date(), {
         locale: locales[locale],
@@ -47,13 +37,13 @@ export const DateRangeSelector = ({
         [type]: newDate,
       };
 
-      if (type === "start" && isAfter(newDate, dateRange.end)) {
-        setError("Start date cannot be after end date");
+      if (type === 'start' && isAfter(newDate, dateRange.end)) {
+        setError('Start date cannot be after end date');
         return;
       }
 
-      if (type === "end" && isBefore(newDate, dateRange.start)) {
-        setError("End date cannot be before start date");
+      if (type === 'end' && isBefore(newDate, dateRange.start)) {
+        setError('End date cannot be before start date');
         return;
       }
 
@@ -61,7 +51,7 @@ export const DateRangeSelector = ({
       setDateRange(newRange);
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (error) {
-      setError("Invalid date format");
+      setError('Invalid date format');
     }
   };
 
@@ -88,7 +78,7 @@ export const DateRangeSelector = ({
               focus:border-[#1b74e4] focus:ring-2 focus:ring-[#1b74e4]/30
               transition-all duration-200"
               value={format(dateRange.start, dateFormat)}
-              onChange={(e) => handleDateChange("start", e.target.value)}
+              onChange={(e) => handleDateChange('start', e.target.value)}
               max={format(dateRange.end, dateFormat)}
             />
           </div>
@@ -111,7 +101,7 @@ export const DateRangeSelector = ({
               focus:border-[#1b74e4] focus:ring-2 focus:ring-[#1b74e4]/30
               transition-all duration-200"
               value={format(dateRange.end, dateFormat)}
-              onChange={(e) => handleDateChange("end", e.target.value)}
+              onChange={(e) => handleDateChange('end', e.target.value)}
               min={format(dateRange.start, dateFormat)}
             />
           </div>
