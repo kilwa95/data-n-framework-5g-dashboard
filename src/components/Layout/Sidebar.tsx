@@ -1,3 +1,4 @@
+import { FreeLogo } from '../icons/FreeLogo';
 
 interface SidebarProps {
   isOpen: boolean;
@@ -11,16 +12,8 @@ export const Sidebar = ({ isOpen }: SidebarProps) => {
       } bg-[#1C1E21] text-white transition-all duration-300 flex flex-col`}
     >
       <div className="h-16 flex items-center px-4 border-b border-gray-700">
-        <svg
-          className="w-8 h-8 text-primary-500"
-          viewBox="0 0 24 24"
-          fill="currentColor"
-        >
-          <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
-        </svg>
-        {isOpen && (
-          <span className="ml-3 font-semibold text-lg">Talentico</span>
-        )}
+        <FreeLogo className="w-8 h-8 text-primary-500" />
+        {isOpen && <span className="ml-3 font-semibold text-lg">Free</span>}
       </div>
 
       <nav className="flex-1 py-4">
