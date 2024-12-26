@@ -1,9 +1,10 @@
 import { useState, useEffect } from 'react';
-import { format, subDays, isAfter, isBefore, parse } from 'date-fns';
+import { format, subDays} from 'date-fns';
 import { fr, enUS } from 'date-fns/locale';
 import type { DateRangeSelectorProps } from './types';
 import { DateInput } from './forms/DateInput';
 import { ErrorMessage } from './ErrorMessage';
+import { validateDateChange } from '../utils/dateRangeValidation';
 
 const locales = {
   fr,
@@ -29,31 +30,17 @@ export const DateRangeSelector = ({
   }, [dateRange, onChange]);
 
   const handleDateChange = (type: 'start' | 'end', value: string) => {
-    try {
-      const newDate = parse(value, dateFormat, new Date(), {
-        locale: locales[locale],
-      });
+    const result = validateDateChange(
+      type,
+      value,
+      dateRange,
+      dateFormat,
+      locales[locale]
+    );
 
-      const newRange = {
-        ...dateRange,
-        [type]: newDate,
-      };
-
-      if (type === 'start' && isAfter(newDate, dateRange.end)) {
-        setError('Start date cannot be after end date');
-        return;
-      }
-
-      if (type === 'end' && isBefore(newDate, dateRange.start)) {
-        setError('End date cannot be before start date');
-        return;
-      }
-
-      setError(null);
-      setDateRange(newRange);
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    } catch (error) {
-      setError('Invalid date format');
+    setError(result.error);
+    if (result.newRange) {
+      setDateRange(result.newRange);
     }
   };
 
