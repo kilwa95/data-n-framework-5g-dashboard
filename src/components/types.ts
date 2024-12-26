@@ -18,3 +18,21 @@ export interface DateRangeSelectorProps {
     max?: string;
     dateFormat: string;
   }
+
+  export interface EligibilityOption {
+    id: string;
+    label: string;
+    value: boolean;
+  }
+
+  export interface EligibilityFilterProps {
+    onChange: (selections: Record<string, boolean>) => void;
+    initialValues?: Record<string, boolean>;
+    className?: string;
+  }
+
+  export interface ToggleProps {
+    checked: boolean;
+    onChange: (checked: boolean) => void;
+    label: string;
+  }
