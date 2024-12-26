@@ -58,15 +58,8 @@ export const Sidebar = ({ isOpen }: SidebarProps) => {
 
 const menuItems = [
   { name: 'Home', href: '/', icon: '🏠', active: true },
-  { name: 'Time Off', href: '/time-off', icon: '⏰' },
-  { name: 'Projects', href: '/projects', icon: '📁' },
-  { name: 'Employees', href: '/employees', icon: '👥' },
-  { name: 'Analytics', href: '/analytics', icon: '📊' },
-  { name: 'Payments', href: '/payments', icon: '💳' },
 ];
 
 const organizationItems = [
   { name: 'Integrations', href: '/integrations', icon: '🔄' },
-  { name: 'Documents', href: '/documents', icon: '📄' },
-  { name: 'Global Payroll', href: '/payroll', icon: '💰' },
 ];
