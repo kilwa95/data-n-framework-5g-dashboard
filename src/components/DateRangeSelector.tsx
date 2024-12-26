@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { format, subDays, isAfter, isBefore, parse } from 'date-fns';
 import { fr, enUS } from 'date-fns/locale';
 import type { DateRangeSelectorProps } from './types';
+import { DateInput } from './DateInput';
 
 const locales = {
   fr,
@@ -61,51 +62,23 @@ export const DateRangeSelector = ({
       border border-gray-200 dark:border-gray-700 ${className}`}
     >
       <div className="flex flex-col sm:flex-row gap-4">
-        <div className="flex-1">
-          <label
-            htmlFor="start-date"
-            className="block text-[13px] font-medium text-[#65676B] dark:text-gray-400 mb-1.5"
-          >
-            {labels.from}
-          </label>
-          <div className="relative">
-            <input
-              id="start-date"
-              type="date"
-              className="w-full h-10 px-3 bg-[#F0F2F5] dark:bg-[#3A3B3C] 
-              border border-transparent hover:border-[#1b74e4] 
-              rounded-lg text-[#050505] dark:text-gray-200
-              focus:border-[#1b74e4] focus:ring-2 focus:ring-[#1b74e4]/30
-              transition-all duration-200"
-              value={format(dateRange.start, dateFormat)}
-              onChange={(e) => handleDateChange('start', e.target.value)}
-              max={format(dateRange.end, dateFormat)}
-            />
-          </div>
-        </div>
+        <DateInput
+          id="start-date"
+          label={labels.from}
+          value={dateRange.start}
+          onChange={(value) => handleDateChange('start', value)}
+          max={format(dateRange.end, dateFormat)}
+          dateFormat={dateFormat}
+        />
 
-        <div className="flex-1">
-          <label
-            htmlFor="end-date"
-            className="block text-[13px] font-medium text-[#65676B] dark:text-gray-400 mb-1.5"
-          >
-            {labels.to}
-          </label>
-          <div className="relative">
-            <input
-              id="end-date"
-              type="date"
-              className="w-full h-10 px-3 bg-[#F0F2F5] dark:bg-[#3A3B3C] 
-              border border-transparent hover:border-[#1b74e4]
-              rounded-lg text-[#050505] dark:text-gray-200
-              focus:border-[#1b74e4] focus:ring-2 focus:ring-[#1b74e4]/30
-              transition-all duration-200"
-              value={format(dateRange.end, dateFormat)}
-              onChange={(e) => handleDateChange('end', e.target.value)}
-              min={format(dateRange.start, dateFormat)}
-            />
-          </div>
-        </div>
+        <DateInput
+          id="end-date"
+          label={labels.to}
+          value={dateRange.end}
+          onChange={(value) => handleDateChange('end', value)}
+          min={format(dateRange.start, dateFormat)}
+          dateFormat={dateFormat}
+        />
       </div>
 
       {error && (
