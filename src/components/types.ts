@@ -69,3 +69,49 @@ export interface LocationMarkerProps {
   onMarkerClick?: (location: Location) => void;
   onHover: (locationId: string | null) => void;
 }
+
+export interface LocationItem {
+  id: string;
+  name: string;
+}
+
+export interface HierarchyData {
+  regions: LocationItem[];
+  departments: Record<string, LocationItem[]>;
+  cities: Record<string, LocationItem[]>;
+}
+
+export interface HierarchyLocationFilterProps {
+  onChange: (selection: {
+    region: LocationItem | null;
+    department: LocationItem | null;
+    city: LocationItem | null;
+  }) => void;
+  initialData?: HierarchyData;
+  loadData?: {
+    departments?: (regionId: string) => Promise<Location[]>;
+    cities?: (departmentId: string) => Promise<Location[]>;
+  };
+  labels?: {
+    region?: string;
+    department?: string;
+    city?: string;
+  };
+  placeholders?: {
+    region?: string;
+    department?: string;
+    city?: string;
+  };
+  className?: string;
+}
+
+export interface LocationSelectProps {
+  id: string;
+  label: string;
+  placeholder: string;
+  options: LocationItem[];
+  value: string | undefined;
+  onChange: (value: string) => void;
+  isDisabled: boolean;
+  isLoading: boolean;
+}
