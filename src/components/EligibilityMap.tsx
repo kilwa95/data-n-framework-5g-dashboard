@@ -1,6 +1,7 @@
 import { useState, useCallback, useMemo } from 'react';
 import { MapContainer, TileLayer, GeoJSON, ZoomControl } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
+import type { FeatureCollection } from 'geojson';
 import departmentsData from '../data/france-departments.json';
 import type { EligibilityMapProps } from './types';
 import {
@@ -10,6 +11,8 @@ import {
 } from './EligibilityMap.styles';
 import { LocationMarker } from './LocationMarker';
 import { filterLocations } from '../utils/locationFilters';
+
+const data = departmentsData as FeatureCollection;
 
 export const EligibilityMap = ({
   filters,
@@ -49,7 +52,7 @@ export const EligibilityMap = ({
         />
 
         {/* Contours des départements */}
-        <GeoJSON data={departmentsData} style={departmentStyle} />
+        <GeoJSON data={data} style={departmentStyle} />
 
         {/* Points de localisation */}
         {filteredLocations.map((location) => (
