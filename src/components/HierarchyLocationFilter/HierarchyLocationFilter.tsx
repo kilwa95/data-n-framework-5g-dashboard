@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
-import { HierarchyLocationFilterProps } from './types';
-import { useLocationHierarchy } from '../hooks/useLocationHierarchy';
-import { LocationSelect } from './LocationSelect';
+import { useLocationHierarchy } from '../../hooks/useLocationHierarchy';
+import { LocationSelect } from '../LocationSelect';
+import { HierarchyLocationFilterProps } from '../types';
 
 export const HierarchyLocationFilter = ({
   onChange,

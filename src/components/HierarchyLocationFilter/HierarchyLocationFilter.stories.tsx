@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { HierarchyLocationFilter } from './HierarchyLocationFilter';
+import { Location } from '../types';
 
 const meta = {
   title: 'Components/HierarchyLocationFilter',
@@ -15,17 +16,17 @@ type Story = StoryObj<typeof meta>;
 
 const mockData = {
   regions: [
-    { id: 'r1', name: 'Île-de-France' },
-    { id: 'r2', name: 'Auvergne-Rhône-Alpes' },
+    { id: 'r1', name: 'Île-de-France', coordinates: [48.8566, 2.3522] },
+    { id: 'r2', name: 'Auvergne-Rhône-Alpes', coordinates: [45.7578, 4.832] },
   ],
   departments: {
     r1: [
-      { id: 'd1', name: 'Paris' },
-      { id: 'd2', name: 'Hauts-de-Seine' },
+      { id: 'd1', name: 'Paris', coordinates: [48.8566, 2.3522] },
+      { id: 'd2', name: 'Hauts-de-Seine', coordinates: [48.8924, 2.2069] },
     ],
     r2: [
-      { id: 'd3', name: 'Rhône' },
-      { id: 'd4', name: 'Isère' },
+      { id: 'd3', name: 'Rhône', coordinates: [45.7578, 4.832] },
+      { id: 'd4', name: 'Isère', coordinates: [45.7578, 4.832] },
     ],
   },
   cities: {
@@ -68,11 +69,14 @@ export const WithAsyncLoading: Story = {
     loadData: {
       departments: async (regionId: string) => {
         await new Promise((resolve) => setTimeout(resolve, 1000));
-        return mockData.departments[regionId] || [];
+        return (mockData.departments[
+          regionId as keyof typeof mockData.departments
+        ] || []) as Location[];
       },
       cities: async (departmentId: string) => {
         await new Promise((resolve) => setTimeout(resolve, 1000));
-        return mockData.cities[departmentId] || [];
+        return (mockData.cities[departmentId as keyof typeof mockData.cities] ||
+          []) as Location[];
       },
     },
   },
