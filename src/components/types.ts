@@ -154,3 +154,18 @@ export interface TestResultsTableProps {
   loading?: boolean;
   className?: string;
 }
+
+export type FrequencyType = 'hourly' | 'daily' | 'monthly';
+
+interface DataPoint {
+  timestamp: string;
+  value: number;
+}
+
+export interface TestTrendChartProps {
+  data: DataPoint[];
+  frequency: FrequencyType;
+  onFrequencyChange: (frequency: FrequencyType) => void;
+  loading?: boolean;
+  className?: string;
+}
