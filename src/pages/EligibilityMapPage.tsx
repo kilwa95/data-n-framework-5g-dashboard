@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { HierarchyLocationFilter } from '../components/HierarchyLocationFilter';
 import { EligibilityFilter } from '../components/EligibilityFilter';
-import { EligibilityMap } from '../components/EligibilityMap';
+import { EligibilityMap } from '../components/EligibilityMap/EligibilityMap';
 import { KPITracker } from '../components/KPITracker';
 import { TestTrendChart } from '../components/TestTrendChart';
 import { TestResultsTable } from '../components/TestResultsTable';

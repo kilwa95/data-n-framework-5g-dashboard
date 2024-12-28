@@ -1,4 +1,4 @@
-import type { ToggleProps } from './types';
+import type { ToggleProps } from '../types';
 
 export const Toggle = ({ checked, onChange, label }: ToggleProps) => {
   return (

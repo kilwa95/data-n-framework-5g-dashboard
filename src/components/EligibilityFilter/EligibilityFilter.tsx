@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
-import type { EligibilityOption, EligibilityFilterProps } from './types';
-import { defaultEligibilityOptions } from './constants';
+import { EligibilityOption } from '../types';
+import { EligibilityFilterProps } from '../types';
 import { Toggle } from './Toggle';
+import { defaultEligibilityOptions } from '../constants';
 
 export const EligibilityFilter = ({
   onChange,

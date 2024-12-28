@@ -1,6 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { EligibilityMap } from './EligibilityMap';
-
 const meta = {
   title: 'Components/EligibilityMap',
   component: EligibilityMap,

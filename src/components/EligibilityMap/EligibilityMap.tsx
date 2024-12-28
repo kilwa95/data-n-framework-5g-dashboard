@@ -2,15 +2,15 @@ import { useState, useCallback, useMemo } from 'react';
 import { MapContainer, TileLayer, GeoJSON, ZoomControl } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import type { FeatureCollection } from 'geojson';
-import departmentsData from '../data/france-departments.json';
-import type { EligibilityMapProps } from './types';
+import departmentsData from '../../data/france-departments.json';
+import type { EligibilityMapProps } from '../types';
 import {
   mapStyle,
   departmentStyle,
   getMarkerStyle,
 } from './EligibilityMap.styles';
-import { LocationMarker } from './LocationMarker';
-import { filterLocations } from '../utils/locationFilters';
+import { LocationMarker } from '../LocationMarker';
+import { filterLocations } from '../../utils/locationFilters';
 
 const data = departmentsData as FeatureCollection;
 

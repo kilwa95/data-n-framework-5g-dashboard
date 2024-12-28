@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react';
-import { format, subDays} from 'date-fns';
+import { format, subDays } from 'date-fns';
 import { fr, enUS } from 'date-fns/locale';
-import type { DateRangeSelectorProps } from './types';
-import { DateInput } from './forms/DateInput';
-import { ErrorMessage } from './ErrorMessage';
-import { validateDateChange } from '../utils/dateRangeValidation';
+import { DateInput } from '../forms/DateInput';
+import { ErrorMessage } from '../ErrorMessage';
+import { validateDateChange } from '../../utils/dateRangeValidation';
+import { DateRangeSelectorProps } from '../types';
 
 const locales = {
   fr,
