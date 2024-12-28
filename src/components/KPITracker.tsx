@@ -1,14 +1,5 @@
 import { useState, useEffect } from 'react';
-
-interface KPITrackerProps {
-  title?: string;
-  value: number;
-  loading?: boolean;
-  formatter?: (value: number) => string;
-  className?: string;
-  refreshInterval?: number;
-  onRefresh?: () => Promise<number>;
-}
+import { KPITrackerProps } from './types';
 
 export const KPITracker = ({
   title = 'Nombre de tests d\'éligibilité 5G Box',

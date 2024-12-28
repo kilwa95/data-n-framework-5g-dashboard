@@ -115,3 +115,13 @@ export interface LocationSelectProps {
   isDisabled: boolean;
   isLoading: boolean;
 }
+
+export interface KPITrackerProps {
+  title?: string;
+  value: number;
+  loading?: boolean;
+  formatter?: (value: number) => string;
+  className?: string;
+  refreshInterval?: number;
+  onRefresh?: () => Promise<number>;
+}
