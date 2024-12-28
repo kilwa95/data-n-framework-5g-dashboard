@@ -30,6 +30,9 @@ const mockData = Array.from({ length: 10 }, (_, index) => ({
   active_4g_cells: Math.floor(Math.random() * 12),
   active_5gcoverage: Math.random() > 0.4,
   active_5g_cells: Math.floor(Math.random() * 8),
+  region: 'IDF',
+  department: '75',
+  city: 'Paris',
 }));
 
 export const Default: Story = {

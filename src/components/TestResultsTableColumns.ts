@@ -1,6 +1,10 @@
-import { GridColDef } from '@mui/x-data-grid';
+import { GridColDef, GridRenderCellParams } from '@mui/x-data-grid';
 import { format, parseISO } from 'date-fns';
 import { fr } from 'date-fns/locale';
+
+interface CellParams {
+  value: number | null;
+}
 
 export const getTestResultsColumns = (): GridColDef[] => [
   {
@@ -8,10 +12,10 @@ export const getTestResultsColumns = (): GridColDef[] => [
     headerName: 'Date and Time',
     flex: 1,
     minWidth: 160,
-    valueFormatter: (params) => {
+    valueFormatter: (params: GridRenderCellParams) => {
       if (!params.value) return '';
       try {
-        return format(parseISO(params.value), 'dd/MM/yyyy HH:mm', {
+        return format(parseISO(params.value as string), 'dd/MM/yyyy HH:mm', {
           locale: fr,
         });
       } catch (error) {
@@ -25,7 +29,7 @@ export const getTestResultsColumns = (): GridColDef[] => [
     headerName: 'Longitude',
     flex: 1,
     minWidth: 120,
-    valueFormatter: (params) => {
+    valueFormatter: (params: CellParams) => {
       return params.value != null ? params.value.toFixed(4) : '';
     },
   },
@@ -34,7 +38,7 @@ export const getTestResultsColumns = (): GridColDef[] => [
     headerName: 'Latitude',
     flex: 1,
     minWidth: 120,
-    valueFormatter: (params) => {
+    valueFormatter: (params: CellParams) => {
       return params.value != null ? params.value.toFixed(4) : '';
     },
   },
