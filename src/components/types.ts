@@ -125,3 +125,32 @@ export interface KPITrackerProps {
   refreshInterval?: number;
   onRefresh?: () => Promise<number>;
 }
+
+interface TestResult {
+  id: string;
+  region: string;
+  department: string;
+  city: string;
+  datetime: string;
+  longitude: number;
+  latitude: number;
+  can_subscribe: boolean;
+  is_ztd: boolean;
+  foundCoverage: boolean;
+  cell_1800_coverage: number;
+  sector_capacity: string;
+  max_user: number;
+  site_name: string;
+  sector: string;
+  active_4gcoverage: boolean;
+  active_4g_cells: number;
+  active_5gcoverage: boolean;
+  active_5g_cells: number;
+}
+
+export interface TestResultsTableProps {
+  data: TestResult[];
+  filters?: Record<string, any>;
+  loading?: boolean;
+  className?: string;
+}
