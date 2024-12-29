@@ -1,6 +1,6 @@
-import { BurgerMenu } from './BurgerMenu';
-import { NotificationButton } from './NotificationButton';
-import { AvatarButton } from './AvatarButton';
+import { BurgerMenu } from "./BurgerMenu";
+import { NotificationButton } from "./NotificationButton";
+import { AvatarButton } from "./AvatarButton";
 
 interface HeaderProps {
   onMenuClick: () => void;

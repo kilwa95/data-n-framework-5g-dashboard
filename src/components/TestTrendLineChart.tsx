@@ -7,7 +7,7 @@ import {
   Tooltip,
   ResponsiveContainer,
   Legend,
-} from 'recharts';
+} from "recharts";
 
 interface TestTrendLineChartProps {
   data: Array<{
@@ -31,23 +31,23 @@ export const TestTrendLineChart = ({ data }: TestTrendLineChartProps) => {
         />
         <XAxis
           dataKey="formattedTimestamp"
-          tick={{ fill: '#65676B' }}
-          tickLine={{ stroke: '#65676B' }}
-          axisLine={{ stroke: '#E4E6EB' }}
+          tick={{ fill: "#65676B" }}
+          tickLine={{ stroke: "#65676B" }}
+          axisLine={{ stroke: "#E4E6EB" }}
         />
         <YAxis
-          tick={{ fill: '#65676B' }}
-          tickLine={{ stroke: '#65676B' }}
-          axisLine={{ stroke: '#E4E6EB' }}
+          tick={{ fill: "#65676B" }}
+          tickLine={{ stroke: "#65676B" }}
+          axisLine={{ stroke: "#E4E6EB" }}
         />
         <Tooltip
           contentStyle={{
-            backgroundColor: '#FFFFFF',
-            border: 'none',
-            borderRadius: '8px',
-            boxShadow: '0 2px 8px rgba(0, 0, 0, 0.15)',
+            backgroundColor: "#FFFFFF",
+            border: "none",
+            borderRadius: "8px",
+            boxShadow: "0 2px 8px rgba(0, 0, 0, 0.15)",
           }}
-          labelStyle={{ color: '#65676B' }}
+          labelStyle={{ color: "#65676B" }}
         />
         <Legend />
         <Line
@@ -57,7 +57,7 @@ export const TestTrendLineChart = ({ data }: TestTrendLineChartProps) => {
           stroke="#1b74e4"
           strokeWidth={2}
           dot={false}
-          activeDot={{ r: 6, fill: '#1b74e4' }}
+          activeDot={{ r: 6, fill: "#1b74e4" }}
         />
       </LineChart>
     </ResponsiveContainer>

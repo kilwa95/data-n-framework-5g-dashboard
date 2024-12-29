@@ -1,5 +1,5 @@
-import { isAfter, isBefore, parse } from 'date-fns';
-import type { Locale } from 'date-fns';
+import { isAfter, isBefore, parse } from "date-fns";
+import type { Locale } from "date-fns";
 
 interface DateRange {
   start: Date;
@@ -12,11 +12,11 @@ interface ValidateDateChangeResult {
 }
 
 export const validateDateChange = (
-  type: 'start' | 'end',
+  type: "start" | "end",
   value: string,
   currentRange: DateRange,
   dateFormat: string,
-  locale: Locale
+  locale: Locale,
 ): ValidateDateChangeResult => {
   try {
     const newDate = parse(value, dateFormat, new Date(), { locale });
@@ -26,16 +26,16 @@ export const validateDateChange = (
       [type]: newDate,
     };
 
-    if (type === 'start' && isAfter(newDate, currentRange.end)) {
+    if (type === "start" && isAfter(newDate, currentRange.end)) {
       return {
-        error: 'Start date cannot be after end date',
+        error: "Start date cannot be after end date",
         newRange: null,
       };
     }
 
-    if (type === 'end' && isBefore(newDate, currentRange.start)) {
+    if (type === "end" && isBefore(newDate, currentRange.start)) {
       return {
-        error: 'End date cannot be before start date',
+        error: "End date cannot be before start date",
         newRange: null,
       };
     }
@@ -44,10 +44,10 @@ export const validateDateChange = (
       error: null,
       newRange,
     };
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
   } catch (error) {
     return {
-      error: 'Invalid date format',
+      error: "Invalid date format",
       newRange: null,
     };
   }

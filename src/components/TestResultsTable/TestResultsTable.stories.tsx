@@ -1,13 +1,13 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import { TestResultsTable } from './TestResultsTable';
+import type { Meta, StoryObj } from "@storybook/react";
+import { TestResultsTable } from "./TestResultsTable";
 
 const meta = {
-  title: 'Components/TestResultsTable',
+  title: "Components/TestResultsTable",
   component: TestResultsTable,
   parameters: {
-    layout: 'centered',
+    layout: "centered",
   },
-  tags: ['autodocs'],
+  tags: ["autodocs"],
 } satisfies Meta<typeof TestResultsTable>;
 
 export default meta;
@@ -22,7 +22,7 @@ const mockData = Array.from({ length: 10 }, (_, index) => ({
   is_ztd: Math.random() > 0.5,
   foundCoverage: Math.random() > 0.3,
   cell_1800_coverage: Math.floor(Math.random() * 20),
-  sector_capacity: ['Low', 'Medium', 'High'][Math.floor(Math.random() * 3)],
+  sector_capacity: ["Low", "Medium", "High"][Math.floor(Math.random() * 3)],
   max_user: Math.floor(Math.random() * 200),
   site_name: `Site ${String.fromCharCode(65 + Math.floor(Math.random() * 26))}`,
   sector: `Sector ${Math.floor(Math.random() * 5) + 1}`,
@@ -30,9 +30,9 @@ const mockData = Array.from({ length: 10 }, (_, index) => ({
   active_4g_cells: Math.floor(Math.random() * 12),
   active_5gcoverage: Math.random() > 0.4,
   active_5g_cells: Math.floor(Math.random() * 8),
-  region: 'IDF',
-  department: '75',
-  city: 'Paris',
+  region: "IDF",
+  department: "75",
+  city: "Paris",
 }));
 
 export const Default: Story = {

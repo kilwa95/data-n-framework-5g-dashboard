@@ -1,10 +1,10 @@
-import { useState, useEffect } from 'react';
-import { format, subDays } from 'date-fns';
-import { fr, enUS } from 'date-fns/locale';
-import { DateInput } from '../forms/DateInput';
-import { ErrorMessage } from '../ErrorMessage';
-import { validateDateChange } from '../../utils/dateRangeValidation';
-import { DateRangeSelectorProps } from '../types';
+import { useState, useEffect } from "react";
+import { format, subDays } from "date-fns";
+import { fr, enUS } from "date-fns/locale";
+import { DateInput } from "../forms/DateInput";
+import { ErrorMessage } from "../ErrorMessage";
+import { validateDateChange } from "../../utils/dateRangeValidation";
+import { DateRangeSelectorProps } from "../types";
 
 const locales = {
   fr,
@@ -13,10 +13,10 @@ const locales = {
 
 export const DateRangeSelector = ({
   onChange,
-  format: dateFormat = 'yyyy-MM-dd',
-  locale = 'en',
-  className = '',
-  labels = { from: 'From', to: 'To' },
+  format: dateFormat = "yyyy-MM-dd",
+  locale = "en",
+  className = "",
+  labels = { from: "From", to: "To" },
 }: DateRangeSelectorProps) => {
   const [dateRange, setDateRange] = useState({
     start: subDays(new Date(), 30),
@@ -29,13 +29,13 @@ export const DateRangeSelector = ({
     onChange(dateRange);
   }, [dateRange, onChange]);
 
-  const handleDateChange = (type: 'start' | 'end', value: string) => {
+  const handleDateChange = (type: "start" | "end", value: string) => {
     const result = validateDateChange(
       type,
       value,
       dateRange,
       dateFormat,
-      locales[locale]
+      locales[locale],
     );
 
     setError(result.error);
@@ -54,7 +54,7 @@ export const DateRangeSelector = ({
           id="start-date"
           label={labels.from}
           value={dateRange.start}
-          onChange={(value) => handleDateChange('start', value)}
+          onChange={(value) => handleDateChange("start", value)}
           max={format(dateRange.end, dateFormat)}
           dateFormat={dateFormat}
         />
@@ -63,7 +63,7 @@ export const DateRangeSelector = ({
           id="end-date"
           label={labels.to}
           value={dateRange.end}
-          onChange={(value) => handleDateChange('end', value)}
+          onChange={(value) => handleDateChange("end", value)}
           min={format(dateRange.start, dateFormat)}
           dateFormat={dateFormat}
         />

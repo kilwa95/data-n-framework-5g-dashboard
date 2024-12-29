@@ -1,12 +1,12 @@
-import { useState, useEffect } from 'react';
-import { KPITrackerProps } from '../types';
+import { useState, useEffect } from "react";
+import { KPITrackerProps } from "../types";
 
 export const KPITracker = ({
   title = "Nombre de tests d'éligibilité 5G Box",
   value: initialValue,
   loading = false,
-  formatter = (val) => new Intl.NumberFormat('fr-FR').format(val),
-  className = '',
+  formatter = (val) => new Intl.NumberFormat("fr-FR").format(val),
+  className = "",
   refreshInterval,
   onRefresh,
 }: KPITrackerProps) => {
@@ -26,7 +26,7 @@ export const KPITracker = ({
         const newValue = await onRefresh();
         setValue(newValue);
       } catch (error) {
-        console.error('Failed to refresh KPI value:', error);
+        console.error("Failed to refresh KPI value:", error);
       } finally {
         setIsLoading(false);
       }
@@ -47,7 +47,7 @@ export const KPITracker = ({
       <div className="relative">
         <div
           className={`text-[32px] font-semibold text-[#050505] dark:text-gray-200 
-            ${isLoading ? 'opacity-50' : ''}`}
+            ${isLoading ? "opacity-50" : ""}`}
         >
           {formatter(value)}
         </div>

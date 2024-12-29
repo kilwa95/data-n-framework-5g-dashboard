@@ -1,5 +1,5 @@
-import { SidebarHeader } from './SidebarHeader';
-import { SidebarNavigation } from './SidebarNavigation';
+import { SidebarHeader } from "./SidebarHeader";
+import { SidebarNavigation } from "./SidebarNavigation";
 
 interface SidebarProps {
   isOpen: boolean;
@@ -9,7 +9,7 @@ export const Sidebar = ({ isOpen }: SidebarProps) => {
   return (
     <aside
       className={`${
-        isOpen ? 'w-64' : 'w-20'
+        isOpen ? "w-64" : "w-20"
       } bg-[#1C1E21] text-white transition-all duration-300 flex flex-col`}
     >
       <SidebarHeader isOpen={isOpen} />
@@ -22,8 +22,8 @@ export const Sidebar = ({ isOpen }: SidebarProps) => {
   );
 };
 
-const menuItems = [{ name: 'Home', href: '/', icon: '🏠', active: true }];
+const menuItems = [{ name: "Home", href: "/", icon: "🏠", active: true }];
 
 const organizationItems = [
-  { name: 'Integrations', href: '/integrations', icon: '🔄' },
+  { name: "Integrations", href: "/integrations", icon: "🔄" },
 ];

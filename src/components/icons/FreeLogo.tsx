@@ -2,7 +2,7 @@ interface FreeLogoProps {
   className?: string;
 }
 
-export const FreeLogo = ({ className = '' }: FreeLogoProps) => {
+export const FreeLogo = ({ className = "" }: FreeLogoProps) => {
   return (
     <svg
       viewBox="0 0 87 87"

@@ -1,14 +1,14 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import { TestTrendChart } from './TestTrendChart';
-import { subHours, subDays, subMonths, format } from 'date-fns';
+import type { Meta, StoryObj } from "@storybook/react";
+import { TestTrendChart } from "./TestTrendChart";
+import { subHours, subDays, subMonths, format } from "date-fns";
 
 const meta = {
-  title: 'Components/TestTrendChart',
+  title: "Components/TestTrendChart",
   component: TestTrendChart,
   parameters: {
-    layout: 'centered',
+    layout: "centered",
   },
-  tags: ['autodocs'],
+  tags: ["autodocs"],
 } satisfies Meta<typeof TestTrendChart>;
 
 export default meta;
@@ -39,36 +39,36 @@ const generateMonthlyData = () => {
 export const Hourly: Story = {
   args: {
     data: generateHourlyData(),
-    frequency: 'hourly',
+    frequency: "hourly",
     onFrequencyChange: (frequency) =>
-      console.log('Frequency changed:', frequency),
+      console.log("Frequency changed:", frequency),
   },
 };
 
 export const Daily: Story = {
   args: {
     data: generateDailyData(),
-    frequency: 'daily',
+    frequency: "daily",
     onFrequencyChange: (frequency) =>
-      console.log('Frequency changed:', frequency),
+      console.log("Frequency changed:", frequency),
   },
 };
 
 export const Monthly: Story = {
   args: {
     data: generateMonthlyData(),
-    frequency: 'monthly',
+    frequency: "monthly",
     onFrequencyChange: (frequency) =>
-      console.log('Frequency changed:', frequency),
+      console.log("Frequency changed:", frequency),
   },
 };
 
 export const Loading: Story = {
   args: {
     data: generateDailyData(),
-    frequency: 'daily',
+    frequency: "daily",
     onFrequencyChange: (frequency) =>
-      console.log('Frequency changed:', frequency),
+      console.log("Frequency changed:", frequency),
     loading: true,
   },
 };

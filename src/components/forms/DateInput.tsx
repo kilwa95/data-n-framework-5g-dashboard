@@ -1,5 +1,5 @@
-import { format } from 'date-fns';
-import type { DateInputProps } from '../types';
+import { format } from "date-fns";
+import type { DateInputProps } from "../types";
 
 export const DateInput = ({
   id,

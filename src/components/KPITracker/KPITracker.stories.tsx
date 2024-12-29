@@ -1,13 +1,13 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import { KPITracker } from './KPITracker';
+import type { Meta, StoryObj } from "@storybook/react";
+import { KPITracker } from "./KPITracker";
 
 const meta = {
-  title: 'Components/KPITracker',
+  title: "Components/KPITracker",
   component: KPITracker,
   parameters: {
-    layout: 'centered',
+    layout: "centered",
   },
-  tags: ['autodocs'],
+  tags: ["autodocs"],
 } satisfies Meta<typeof KPITracker>;
 
 export default meta;
@@ -30,7 +30,7 @@ export const Loading: Story = {
 export const CustomFormatting: Story = {
   args: {
     value: 12345,
-    formatter: (value) => `${value.toLocaleString('fr-FR')} tests`,
+    formatter: (value) => `${value.toLocaleString("fr-FR")} tests`,
   },
 };
 

@@ -1,7 +1,7 @@
 export interface DateRangeSelectorProps {
   onChange: (range: { start: Date; end: Date }) => void;
   format?: string;
-  locale?: 'fr' | 'en';
+  locale?: "fr" | "en";
   className?: string;
   labels?: {
     from: string;
@@ -177,7 +177,7 @@ export interface TestResultsTableProps {
   className?: string;
 }
 
-export type FrequencyType = 'hourly' | 'daily' | 'monthly';
+export type FrequencyType = "hourly" | "daily" | "monthly";
 
 interface DataPoint {
   timestamp: string;

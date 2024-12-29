@@ -1,23 +1,23 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import { Sidebar } from './Sidebar';
+import type { Meta, StoryObj } from "@storybook/react";
+import { Sidebar } from "./Sidebar";
 const meta = {
-  title: 'Layout/Sidebar',
+  title: "Layout/Sidebar",
   component: Sidebar,
   parameters: {
-    layout: 'fullscreen',
+    layout: "fullscreen",
   },
   decorators: [
     (Story) => (
-      <div style={{ height: '100vh' }}>
+      <div style={{ height: "100vh" }}>
         <Story />
       </div>
     ),
   ],
-  tags: ['autodocs'],
+  tags: ["autodocs"],
   argTypes: {
     isOpen: {
-      control: 'boolean',
-      description: 'Controls whether the sidebar is expanded or collapsed',
+      control: "boolean",
+      description: "Controls whether the sidebar is expanded or collapsed",
     },
   },
 } satisfies Meta<typeof Sidebar>;
@@ -43,7 +43,7 @@ export const DarkMode: Story = {
   },
   parameters: {
     backgrounds: {
-      default: 'dark',
+      default: "dark",
     },
   },
   decorators: [
@@ -61,7 +61,7 @@ export const Mobile: Story = {
   },
   parameters: {
     viewport: {
-      defaultViewport: 'mobile1',
+      defaultViewport: "mobile1",
     },
   },
 };

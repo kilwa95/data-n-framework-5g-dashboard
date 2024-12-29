@@ -1,14 +1,14 @@
-import { useMemo, useState } from 'react';
-import { DataGrid, GridFilterModel } from '@mui/x-data-grid';
-import { TestResultsTableProps } from '../types';
-import { filterTestResults } from '../../utils/filterTestResults';
-import { getTestResultsColumns } from './TestResultsTableColumns';
+import { useMemo, useState } from "react";
+import { DataGrid, GridFilterModel } from "@mui/x-data-grid";
+import { TestResultsTableProps } from "../types";
+import { filterTestResults } from "../../utils/filterTestResults";
+import { getTestResultsColumns } from "./TestResultsTableColumns";
 
 export const TestResultsTable = ({
   data,
   filters,
   loading = false,
-  className = '',
+  className = "",
 }: TestResultsTableProps) => {
   const [filterModel, setFilterModel] = useState<GridFilterModel>({
     items: [],
@@ -29,9 +29,9 @@ export const TestResultsTable = ({
               },
               eligibility: filters.eligibility,
             }
-          : undefined
+          : undefined,
       ),
-    [data, filters]
+    [data, filters],
   );
 
   return (
@@ -52,16 +52,16 @@ export const TestResultsTable = ({
         disableRowSelectionOnClick
         getRowId={(row) => row.id}
         sx={{
-          border: 'none',
-          '& .MuiDataGrid-cell': {
-            borderColor: 'rgba(224, 224, 224, 0.2)',
+          border: "none",
+          "& .MuiDataGrid-cell": {
+            borderColor: "rgba(224, 224, 224, 0.2)",
           },
-          '& .MuiDataGrid-columnHeaders': {
-            borderColor: 'rgba(224, 224, 224, 0.2)',
-            backgroundColor: '#F0F2F5',
+          "& .MuiDataGrid-columnHeaders": {
+            borderColor: "rgba(224, 224, 224, 0.2)",
+            backgroundColor: "#F0F2F5",
           },
-          '& .MuiDataGrid-footerContainer': {
-            borderColor: 'rgba(224, 224, 224, 0.2)',
+          "& .MuiDataGrid-footerContainer": {
+            borderColor: "rgba(224, 224, 224, 0.2)",
           },
         }}
       />

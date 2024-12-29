@@ -1,4 +1,4 @@
-import { FreeLogo } from '../../icons/FreeLogo';
+import { FreeLogo } from "../../icons/FreeLogo";
 
 interface SidebarHeaderProps {
   isOpen: boolean;

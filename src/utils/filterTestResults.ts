@@ -1,8 +1,8 @@
-import { TestResult, TestResultsFilters } from './types';
+import { TestResult, TestResultsFilters } from "./types";
 
 export const filterTestResults = (
   data: TestResult[],
-  filters?: TestResultsFilters
+  filters?: TestResultsFilters,
 ) => {
   if (!filters) return data;
 

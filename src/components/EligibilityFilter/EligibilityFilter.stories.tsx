@@ -1,13 +1,13 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import { EligibilityFilter } from './EligibilityFilter';
+import type { Meta, StoryObj } from "@storybook/react";
+import { EligibilityFilter } from "./EligibilityFilter";
 
 const meta = {
-  title: 'Components/EligibilityFilter',
+  title: "Components/EligibilityFilter",
   component: EligibilityFilter,
   parameters: {
-    layout: 'centered',
+    layout: "centered",
   },
-  tags: ['autodocs'],
+  tags: ["autodocs"],
 } satisfies Meta<typeof EligibilityFilter>;
 
 export default meta;
@@ -15,13 +15,13 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    onChange: (selections) => console.log('Selections changed:', selections),
+    onChange: (selections) => console.log("Selections changed:", selections),
   },
 };
 
 export const WithInitialValues: Story = {
   args: {
-    onChange: (selections) => console.log('Selections changed:', selections),
+    onChange: (selections) => console.log("Selections changed:", selections),
     initialValues: {
       can_subscribe: true,
       is_ztd: true,

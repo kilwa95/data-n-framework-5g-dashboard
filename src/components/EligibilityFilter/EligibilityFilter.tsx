@@ -1,19 +1,19 @@
-import { useState, useEffect } from 'react';
-import { EligibilityOption } from '../types';
-import { EligibilityFilterProps } from '../types';
-import { Toggle } from './Toggle';
-import { defaultEligibilityOptions } from '../constants';
+import { useState, useEffect } from "react";
+import { EligibilityOption } from "../types";
+import { EligibilityFilterProps } from "../types";
+import { Toggle } from "./Toggle";
+import { defaultEligibilityOptions } from "../constants";
 
 export const EligibilityFilter = ({
   onChange,
   initialValues = {},
-  className = '',
+  className = "",
 }: EligibilityFilterProps) => {
   const [options, setOptions] = useState<EligibilityOption[]>(
     defaultEligibilityOptions.map((option) => ({
       ...option,
       value: initialValues[option.id] ?? option.value,
-    }))
+    })),
   );
 
   useEffect(() => {
@@ -22,7 +22,7 @@ export const EligibilityFilter = ({
         ...acc,
         [option.id]: option.value,
       }),
-      {}
+      {},
     );
     onChange(selections);
   }, [options, onChange]);
@@ -30,8 +30,8 @@ export const EligibilityFilter = ({
   const handleOptionChange = (id: string, newValue: boolean) => {
     setOptions((prevOptions) =>
       prevOptions.map((option) =>
-        option.id === id ? { ...option, value: newValue } : option
-      )
+        option.id === id ? { ...option, value: newValue } : option,
+      ),
     );
   };
 

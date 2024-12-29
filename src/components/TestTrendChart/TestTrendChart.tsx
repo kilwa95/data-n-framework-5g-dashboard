@@ -1,15 +1,15 @@
-import { useState, useEffect, useMemo } from 'react';
-import { TestTrendLineChart } from '../TestTrendLineChart';
-import { FrequencyType, TestTrendChartProps } from '../types';
-import { FrequencySelector } from '../FrequencySelector';
-import { formatters } from '../../utils/dateFormatters';
+import { useState, useEffect, useMemo } from "react";
+import { TestTrendLineChart } from "../TestTrendLineChart";
+import { FrequencyType, TestTrendChartProps } from "../types";
+import { FrequencySelector } from "../FrequencySelector";
+import { formatters } from "../../utils/dateFormatters";
 
 export const TestTrendChart = ({
   data,
   frequency,
   onFrequencyChange,
   loading = false,
-  className = '',
+  className = "",
 }: TestTrendChartProps) => {
   const [activeFrequency, setActiveFrequency] =
     useState<FrequencyType>(frequency);

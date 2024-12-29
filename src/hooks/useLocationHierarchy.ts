@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { LocationItem as Location } from '../components/types';
+import { useState } from "react";
+import { LocationItem as Location } from "../components/types";
 
 interface UseLocationHierarchyProps {
   initialData?: {
@@ -18,14 +18,14 @@ export const useLocationHierarchy = ({
   loadData,
 }: UseLocationHierarchyProps) => {
   const [regions, setRegions] = useState<Location[]>(
-    initialData?.regions || []
+    initialData?.regions || [],
   );
   const [departments, setDepartments] = useState<Location[]>([]);
   const [cities, setCities] = useState<Location[]>([]);
 
   const [selectedRegion, setSelectedRegion] = useState<Location | null>(null);
   const [selectedDepartment, setSelectedDepartment] = useState<Location | null>(
-    null
+    null,
   );
   const [selectedCity, setSelectedCity] = useState<Location | null>(null);
 

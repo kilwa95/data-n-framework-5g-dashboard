@@ -1,22 +1,22 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import { EligibilityMap } from './EligibilityMap';
+import type { Meta, StoryObj } from "@storybook/react";
+import { EligibilityMap } from "./EligibilityMap";
 const meta = {
-  title: 'Components/EligibilityMap',
+  title: "Components/EligibilityMap",
   component: EligibilityMap,
   parameters: {
-    layout: 'fullscreen',
+    layout: "fullscreen",
     backgrounds: {
-      default: 'light',
+      default: "light",
     },
   },
   decorators: [
     (Story) => (
-      <div style={{ height: '100vh', padding: '1rem' }}>
+      <div style={{ height: "100vh", padding: "1rem" }}>
         <Story />
       </div>
     ),
   ],
-  tags: ['autodocs'],
+  tags: ["autodocs"],
 } satisfies Meta<typeof EligibilityMap>;
 
 export default meta;
@@ -37,6 +37,6 @@ export const Default: Story = {
         active_5g: false,
       },
     },
-    className: 'h-[600px]',
+    className: "h-[600px]",
   },
 };

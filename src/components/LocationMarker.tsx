@@ -1,5 +1,5 @@
-import { CircleMarker, Tooltip } from 'react-leaflet';
-import type { LocationMarkerProps } from './types';
+import { CircleMarker, Tooltip } from "react-leaflet";
+import type { LocationMarkerProps } from "./types";
 
 export const LocationMarker = ({
   location,

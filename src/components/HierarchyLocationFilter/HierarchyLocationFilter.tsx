@@ -1,23 +1,23 @@
-import { useEffect } from 'react';
-import { useLocationHierarchy } from '../../hooks/useLocationHierarchy';
-import { LocationSelect } from '../LocationSelect';
-import { HierarchyLocationFilterProps } from '../types';
+import { useEffect } from "react";
+import { useLocationHierarchy } from "../../hooks/useLocationHierarchy";
+import { LocationSelect } from "../LocationSelect";
+import { HierarchyLocationFilterProps } from "../types";
 
 export const HierarchyLocationFilter = ({
   onChange,
   initialData,
   loadData,
   labels = {
-    region: 'Region',
-    department: 'Department',
-    city: 'City',
+    region: "Region",
+    department: "Department",
+    city: "City",
   },
   placeholders = {
-    region: 'Select a region',
-    department: 'Select a department',
-    city: 'Select a city',
+    region: "Select a region",
+    department: "Select a department",
+    city: "Select a city",
   },
-  className = '',
+  className = "",
 }: HierarchyLocationFilterProps) => {
   const {
     regions,

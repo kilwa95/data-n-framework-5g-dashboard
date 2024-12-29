@@ -1,14 +1,14 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import { HierarchyLocationFilter } from './HierarchyLocationFilter';
-import { Location } from '../types';
+import type { Meta, StoryObj } from "@storybook/react";
+import { HierarchyLocationFilter } from "./HierarchyLocationFilter";
+import { Location } from "../types";
 
 const meta = {
-  title: 'Components/HierarchyLocationFilter',
+  title: "Components/HierarchyLocationFilter",
   component: HierarchyLocationFilter,
   parameters: {
-    layout: 'centered',
+    layout: "centered",
   },
-  tags: ['autodocs'],
+  tags: ["autodocs"],
 } satisfies Meta<typeof HierarchyLocationFilter>;
 
 export default meta;
@@ -16,55 +16,55 @@ type Story = StoryObj<typeof meta>;
 
 const mockData = {
   regions: [
-    { id: 'r1', name: 'Île-de-France', coordinates: [48.8566, 2.3522] },
-    { id: 'r2', name: 'Auvergne-Rhône-Alpes', coordinates: [45.7578, 4.832] },
+    { id: "r1", name: "Île-de-France", coordinates: [48.8566, 2.3522] },
+    { id: "r2", name: "Auvergne-Rhône-Alpes", coordinates: [45.7578, 4.832] },
   ],
   departments: {
     r1: [
-      { id: 'd1', name: 'Paris', coordinates: [48.8566, 2.3522] },
-      { id: 'd2', name: 'Hauts-de-Seine', coordinates: [48.8924, 2.2069] },
+      { id: "d1", name: "Paris", coordinates: [48.8566, 2.3522] },
+      { id: "d2", name: "Hauts-de-Seine", coordinates: [48.8924, 2.2069] },
     ],
     r2: [
-      { id: 'd3', name: 'Rhône', coordinates: [45.7578, 4.832] },
-      { id: 'd4', name: 'Isère', coordinates: [45.7578, 4.832] },
+      { id: "d3", name: "Rhône", coordinates: [45.7578, 4.832] },
+      { id: "d4", name: "Isère", coordinates: [45.7578, 4.832] },
     ],
   },
   cities: {
-    d1: [{ id: 'c1', name: 'Paris' }],
+    d1: [{ id: "c1", name: "Paris" }],
     d2: [
-      { id: 'c2', name: 'Nanterre' },
-      { id: 'c3', name: 'Boulogne-Billancourt' },
+      { id: "c2", name: "Nanterre" },
+      { id: "c3", name: "Boulogne-Billancourt" },
     ],
   },
 };
 
 export const Default: Story = {
   args: {
-    onChange: (selection) => console.log('Selection changed:', selection),
+    onChange: (selection) => console.log("Selection changed:", selection),
     initialData: mockData,
   },
 };
 
 export const WithCustomLabels: Story = {
   args: {
-    onChange: (selection) => console.log('Selection changed:', selection),
+    onChange: (selection) => console.log("Selection changed:", selection),
     initialData: mockData,
     labels: {
-      region: 'Région',
-      department: 'Département',
-      city: 'Ville',
+      region: "Région",
+      department: "Département",
+      city: "Ville",
     },
     placeholders: {
-      region: 'Sélectionnez une région',
-      department: 'Sélectionnez un département',
-      city: 'Sélectionnez une ville',
+      region: "Sélectionnez une région",
+      department: "Sélectionnez un département",
+      city: "Sélectionnez une ville",
     },
   },
 };
 
 export const WithAsyncLoading: Story = {
   args: {
-    onChange: (selection) => console.log('Selection changed:', selection),
+    onChange: (selection) => console.log("Selection changed:", selection),
     initialData: { regions: mockData.regions, departments: {}, cities: {} },
     loadData: {
       departments: async (regionId: string) => {

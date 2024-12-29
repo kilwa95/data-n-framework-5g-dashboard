@@ -1,4 +1,4 @@
-import { KPITracker } from '../../components/KPITracker/KPITracker';
+import { KPITracker } from "../../components/KPITracker/KPITracker";
 
 interface KPISectionProps {
   totalTests: number;

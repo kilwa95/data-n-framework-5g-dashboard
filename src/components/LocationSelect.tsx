@@ -1,4 +1,4 @@
-import { LocationSelectProps } from './types';
+import { LocationSelectProps } from "./types";
 
 export const LocationSelect = ({
   id,
@@ -25,11 +25,11 @@ export const LocationSelect = ({
           rounded-lg text-[#050505] dark:text-gray-200
           focus:border-[#1b74e4] focus:ring-2 focus:ring-[#1b74e4]/30
           transition-all duration-200 appearance-none"
-        value={value || ''}
+        value={value || ""}
         onChange={(e) => onChange(e.target.value)}
         disabled={isDisabled}
       >
-        <option value="">{isLoading ? 'Loading...' : placeholder}</option>
+        <option value="">{isLoading ? "Loading..." : placeholder}</option>
         {options.map((option) => (
           <option key={option.id} value={option.id}>
             {option.name}

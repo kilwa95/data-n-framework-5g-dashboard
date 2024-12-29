@@ -1,20 +1,20 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import { Layout } from './Layout';
+import type { Meta, StoryObj } from "@storybook/react";
+import { Layout } from "./Layout";
 
 const meta = {
-  title: 'Layout/Layout',
+  title: "Layout/Layout",
   component: Layout,
   parameters: {
-    layout: 'fullscreen',
+    layout: "fullscreen",
   },
   decorators: [
     (Story) => (
-      <div style={{ height: '100vh' }}>
+      <div style={{ height: "100vh" }}>
         <Story />
       </div>
     ),
   ],
-  tags: ['autodocs'],
+  tags: ["autodocs"],
 } satisfies Meta<typeof Layout>;
 
 export default meta;

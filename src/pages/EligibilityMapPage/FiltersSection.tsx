@@ -1,6 +1,6 @@
-import { HierarchyLocationFilter } from '../../components/HierarchyLocationFilter/HierarchyLocationFilter';
-import { EligibilityFilter } from '../../components/EligibilityFilter/EligibilityFilter';
-import { Filters } from '../types';
+import { HierarchyLocationFilter } from "../../components/HierarchyLocationFilter/HierarchyLocationFilter";
+import { EligibilityFilter } from "../../components/EligibilityFilter/EligibilityFilter";
+import { Filters } from "../types";
 interface LocationItem {
   id: string;
   name: string;
@@ -27,21 +27,21 @@ export const FiltersSection = ({
         onChange={(location) => setFilters((prev) => ({ ...prev, location }))}
         initialData={mockLocationData}
         labels={{
-          region: 'Région',
-          department: 'Département',
-          city: 'Ville',
+          region: "Région",
+          department: "Département",
+          city: "Ville",
         }}
         placeholders={{
-          region: 'Sélectionnez une région',
-          department: 'Sélectionnez un département',
-          city: 'Sélectionnez une ville',
+          region: "Sélectionnez une région",
+          department: "Sélectionnez un département",
+          city: "Sélectionnez une ville",
         }}
       />
       <EligibilityFilter
         onChange={(eligibility) =>
           setFilters((prev) => ({
             ...prev,
-            eligibility: eligibility as Filters['eligibility'],
+            eligibility: eligibility as Filters["eligibility"],
           }))
         }
       />

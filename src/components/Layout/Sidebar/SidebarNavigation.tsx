@@ -27,8 +27,8 @@ export const SidebarNavigation = ({
             className={`flex items-center gap-3 px-3 py-2 mt-2 rounded-lg
               ${
                 item.active
-                  ? 'bg-primary-500 text-white'
-                  : 'text-gray-300 hover:bg-gray-800'
+                  ? "bg-primary-500 text-white"
+                  : "text-gray-300 hover:bg-gray-800"
               } transition-colors`}
           >
             {item.icon}

@@ -1,9 +1,9 @@
-import { Location } from '../components/types';
-import { Filters } from './types';
+import { Location } from "../components/types";
+import { Filters } from "./types";
 
 export const filterLocations = (
   locations: Location[],
-  filters: Filters | null | undefined
+  filters: Filters | null | undefined,
 ) => {
   if (!filters) return locations;
 
