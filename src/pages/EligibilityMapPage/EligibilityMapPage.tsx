@@ -1,12 +1,12 @@
 import { useState } from 'react';
 import { EligibilityMap } from '../../components/EligibilityMap/EligibilityMap';
-import { KPITracker } from '../../components/KPITracker/KPITracker';
 import { TestTrendChart } from '../../components/TestTrendChart/TestTrendChart';
-import { HierarchyLocationFilter } from '../../components/HierarchyLocationFilter/HierarchyLocationFilter';
-import { EligibilityFilter } from '../../components/EligibilityFilter/EligibilityFilter';
 import { TestResultsTable } from '../../components/TestResultsTable/TestResultsTable';
 import { Filters } from '../types';
 import { mockLocationData, mockTestResults } from '../mock';
+import { PageTitle } from '../../components/PageTitle/PageTitle';
+import { KPISection } from './KPISection';
+import { FiltersSection } from './FiltersSection';
 
 export const EligibilityMapPage = () => {
   // État des filtres
@@ -54,63 +54,25 @@ export const EligibilityMapPage = () => {
   return (
     <div className="min-h-screen bg-[#F0F2F5] dark:bg-[#18191A] p-6">
       <div className="max-w-7xl mx-auto space-y-6">
-        {/* En-tête avec titre */}
-        <div className="flex items-center justify-between">
-          <h1 className="text-2xl font-semibold text-[#050505] dark:text-white">
-            Carte d'éligibilité 5G Box
-          </h1>
-        </div>
+        <PageTitle title="Carte d'éligibilité 5G Box" />
 
-        {/* Section KPIs */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <KPITracker
-            title="Nombre total de tests"
-            value={totalTests}
-            refreshInterval={30000}
-            onRefresh={updateKPIs}
-          />
-          <KPITracker
-            title="Tests éligibles"
-            value={eligibleTests}
-            refreshInterval={30000}
-            onRefresh={async () => eligibleTests}
-          />
-        </div>
+        <KPISection
+          totalTests={totalTests}
+          eligibleTests={eligibleTests}
+          updateKPIs={updateKPIs}
+        />
 
-        {/* Ajout du graphique de tendance */}
-        <div className="mt-4">
-          <TestTrendChart
-            data={trendData}
-            frequency={frequency}
-            onFrequencyChange={setFrequency}
-            loading={isLoadingTrend}
-          />
-        </div>
+        <TestTrendChart
+          data={trendData}
+          frequency={frequency}
+          onFrequencyChange={setFrequency}
+          loading={isLoadingTrend}
+        />
 
-        {/* Section Filtres */}
-        <div className="space-y-4">
-          <HierarchyLocationFilter
-            onChange={(location) =>
-              setFilters((prev) => ({ ...prev, location }))
-            }
-            initialData={mockLocationData}
-            labels={{
-              region: 'Région',
-              department: 'Département',
-              city: 'Ville',
-            }}
-            placeholders={{
-              region: 'Sélectionnez une région',
-              department: 'Sélectionnez un département',
-              city: 'Sélectionnez une ville',
-            }}
-          />
-          <EligibilityFilter
-            onChange={(eligibility) =>
-              setFilters((prev) => ({ ...prev, eligibility }))
-            }
-          />
-        </div>
+        <FiltersSection
+          setFilters={setFilters}
+          mockLocationData={mockLocationData}
+        />
 
         {/* Carte */}
         <EligibilityMap
