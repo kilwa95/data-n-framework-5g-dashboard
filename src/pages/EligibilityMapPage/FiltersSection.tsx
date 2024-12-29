@@ -1,10 +1,20 @@
 import { HierarchyLocationFilter } from '../../components/HierarchyLocationFilter/HierarchyLocationFilter';
 import { EligibilityFilter } from '../../components/EligibilityFilter/EligibilityFilter';
 import { Filters } from '../types';
+interface LocationItem {
+  id: string;
+  name: string;
+}
+
+interface LocationData {
+  regions: LocationItem[];
+  departments: Record<string, LocationItem[]>;
+  cities: Record<string, LocationItem[]>;
+}
 
 interface FiltersSectionProps {
   setFilters: React.Dispatch<React.SetStateAction<Filters>>;
-  mockLocationData: any; // Remplacez 'any' par le type approprié de vos données
+  mockLocationData: LocationData;
 }
 
 export const FiltersSection = ({
@@ -29,7 +39,10 @@ export const FiltersSection = ({
       />
       <EligibilityFilter
         onChange={(eligibility) =>
-          setFilters((prev) => ({ ...prev, eligibility }))
+          setFilters((prev) => ({
+            ...prev,
+            eligibility: eligibility as Filters['eligibility'],
+          }))
         }
       />
     </div>
