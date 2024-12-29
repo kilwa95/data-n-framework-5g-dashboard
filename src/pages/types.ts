@@ -17,4 +17,8 @@ export interface Filters {
     active_4g: boolean;
     active_5g: boolean;
   };
+  dateRange: {
+    start: Date;
+    end: Date;
+  };
 }

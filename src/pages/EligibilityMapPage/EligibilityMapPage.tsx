@@ -1,19 +1,21 @@
-import { useState } from "react";
-import { EligibilityMap } from "../../components/EligibilityMap/EligibilityMap";
-import { TestTrendChart } from "../../components/TestTrendChart/TestTrendChart";
-import { TestResultsTable } from "../../components/TestResultsTable/TestResultsTable";
-import { Filters } from "../types";
-import { mockLocationData, mockTestResults } from "../mock";
-import { PageTitle } from "../../components/PageTitle/PageTitle";
-import { KPISection } from "./KPISection";
-import { FiltersSection } from "./FiltersSection";
-import { TestResult } from "../../components/types";
+import { useState } from 'react';
+import { EligibilityMap } from '../../components/EligibilityMap/EligibilityMap';
+import { TestTrendChart } from '../../components/TestTrendChart/TestTrendChart';
+import { TestResultsTable } from '../../components/TestResultsTable/TestResultsTable';
+import { Filters } from '../types';
+import { mockLocationData, mockTestResults } from '../mock';
+import { PageTitle } from '../../components/PageTitle/PageTitle';
+import { KPISection } from './KPISection';
+import { FiltersSection } from './FiltersSection';
+import { TestResult } from '../../components/types';
+import { DateRangeSelector } from '../../components/DateRangeSelector/DateRangeSelector';
+import { subDays } from 'date-fns';
 
 const testResults: TestResult[] = mockTestResults.map((result) => ({
   ...result,
-  region: "Région",
-  department: "Département",
-  city: "Ville",
+  region: 'Région',
+  department: 'Département',
+  city: 'Ville',
 }));
 
 export const EligibilityMapPage = () => {
@@ -32,6 +34,10 @@ export const EligibilityMapPage = () => {
       active_4g: false,
       active_5g: false,
     },
+    dateRange: {
+      start: subDays(new Date(), 30),
+      end: new Date(),
+    },
   });
 
   // État pour les KPIs
@@ -39,8 +45,8 @@ export const EligibilityMapPage = () => {
   const [eligibleTests, setEligibleTests] = useState(0);
 
   // Nouveaux états pour le graphique de tendance
-  const [frequency, setFrequency] = useState<"hourly" | "daily" | "monthly">(
-    "daily",
+  const [frequency, setFrequency] = useState<'hourly' | 'daily' | 'monthly'>(
+    'daily'
   );
 
   // Gestionnaire de mise à jour des KPIs
@@ -49,6 +55,13 @@ export const EligibilityMapPage = () => {
     setTotalTests(newTotal);
     setEligibleTests(Math.floor(newTotal * 0.7));
     return newTotal;
+  };
+
+  const handleDateRangeChange = (range: { start: Date; end: Date }) => {
+    setFilters((prev) => ({
+      ...prev,
+      dateRange: range,
+    }));
   };
 
   return (
@@ -62,10 +75,19 @@ export const EligibilityMapPage = () => {
           updateKPIs={updateKPIs}
         />
 
-        <TestTrendChart
-          data={[]}
-          frequency={frequency}
-          onFrequencyChange={setFrequency}
+        <div className="grid grid-cols-1 gap-6">
+          <TestTrendChart
+            data={[]}
+            frequency={frequency}
+            onFrequencyChange={setFrequency}
+          />
+        </div>
+
+        <DateRangeSelector
+          onChange={handleDateRangeChange}
+          format="yyyy-MM-dd"
+          locale="fr"
+          labels={{ from: 'Du', to: 'Au' }}
         />
 
         <FiltersSection
