@@ -1,6 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { Sidebar } from './Sidebar';
-
 const meta = {
   title: 'Layout/Sidebar',
   component: Sidebar,
