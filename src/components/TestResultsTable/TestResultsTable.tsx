@@ -17,7 +17,20 @@ export const TestResultsTable = ({
   const columns = useMemo(() => getTestResultsColumns(), []);
 
   const filteredData = useMemo(
-    () => filterTestResults(data, filters),
+    () =>
+      filterTestResults(
+        data,
+        filters
+          ? {
+              location: {
+                region: filters.location.region || undefined,
+                department: filters.location.department || undefined,
+                city: filters.location.city || undefined,
+              },
+              eligibility: filters.eligibility,
+            }
+          : undefined
+      ),
     [data, filters]
   );
 

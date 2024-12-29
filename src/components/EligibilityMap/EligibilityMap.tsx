@@ -11,6 +11,7 @@ import {
 } from './EligibilityMap.styles';
 import { LocationMarker } from '../LocationMarker';
 import { filterLocations } from '../../utils/locationFilters';
+import { Filters } from '../../utils/types';
 
 const data = departmentsData as FeatureCollection;
 
@@ -21,9 +22,8 @@ export const EligibilityMap = ({
   onMarkerClick,
 }: EligibilityMapProps) => {
   const [hoveredLocation, setHoveredLocation] = useState<string | null>(null);
-
   const filteredLocations = useMemo(
-    () => filterLocations(locations, filters || null),
+    () => filterLocations(locations, filters as Filters | null),
     [filters, locations]
   );
 

@@ -41,13 +41,13 @@ export interface Location {
   id: string;
   coordinates: [number, number];
   name: string;
-  data?: Record<string, any>;
+  data?: Record<string, unknown>;
 }
 export interface EligibilityMapProps {
   filters?: {
-    region: any;
-    department: any;
-    city: any;
+    region: unknown;
+    department: unknown;
+    city: unknown;
     eligibility: {
       can_subscribe: boolean;
       is_ztd: boolean;
@@ -62,10 +62,18 @@ export interface EligibilityMapProps {
   onMarkerClick?: (location: Location) => void;
 }
 
+interface MarkerStyle {
+  color: string;
+  fillColor: string;
+  weight: number;
+  opacity: number;
+  radius: number;
+}
+
 export interface LocationMarkerProps {
   location: Location;
   isHovered: boolean;
-  getMarkerStyle: (locationId: string) => any;
+  getMarkerStyle: (locationId: string) => MarkerStyle;
   onMarkerClick?: (location: Location) => void;
   onHover: (locationId: string | null) => void;
 }
@@ -150,7 +158,21 @@ export interface TestResult {
 
 export interface TestResultsTableProps {
   data: TestResult[];
-  filters?: Record<string, any>;
+  filters?: {
+    location: {
+      region: LocationItem | null;
+      department: LocationItem | null;
+      city: LocationItem | null;
+    };
+    eligibility: {
+      can_subscribe: boolean;
+      is_ztd: boolean;
+      found_coverage: boolean;
+      sector_capacity: boolean;
+      active_4g: boolean;
+      active_5g: boolean;
+    };
+  };
   loading?: boolean;
   className?: string;
 }
