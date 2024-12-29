@@ -7,6 +7,14 @@ import { mockLocationData, mockTestResults } from '../mock';
 import { PageTitle } from '../../components/PageTitle/PageTitle';
 import { KPISection } from './KPISection';
 import { FiltersSection } from './FiltersSection';
+import { TestResult } from '../../components/types';
+
+const testResults: TestResult[] = mockTestResults.map((result) => ({
+  ...result,
+  region: 'Région',
+  department: 'Département',
+  city: 'Ville',
+}));
 
 export const EligibilityMapPage = () => {
   // État des filtres
@@ -34,21 +42,13 @@ export const EligibilityMapPage = () => {
   const [frequency, setFrequency] = useState<'hourly' | 'daily' | 'monthly'>(
     'daily'
   );
-  const [trendData, setTrendData] = useState<
-    Array<{ timestamp: string; value: number }>
-  >([]);
-  const [isLoadingTrend, setIsLoadingTrend] = useState(false);
-
-  // Nouvel état pour le chargement de la table
-  const [isLoadingTable, setIsLoadingTable] = useState(false);
 
   // Gestionnaire de mise à jour des KPIs
-  const updateKPIs = async () => {
-    // Simuler un appel API pour mettre à jour les KPIs
-    // À remplacer par votre vraie logique d'API
+  const updateKPIs = async (): Promise<number> => {
     const newTotal = Math.floor(Math.random() * 10000);
     setTotalTests(newTotal);
     setEligibleTests(Math.floor(newTotal * 0.7));
+    return newTotal;
   };
 
   return (
@@ -63,10 +63,9 @@ export const EligibilityMapPage = () => {
         />
 
         <TestTrendChart
-          data={trendData}
+          data={[]}
           frequency={frequency}
           onFrequencyChange={setFrequency}
-          loading={isLoadingTrend}
         />
 
         <FiltersSection
@@ -76,15 +75,17 @@ export const EligibilityMapPage = () => {
 
         {/* Carte */}
         <EligibilityMap
-          filters={filters}
+          filters={{
+            ...filters.location,
+            eligibility: filters.eligibility,
+          }}
           className="h-[600px] rounded-lg shadow-lg"
         />
 
         {/* Table des résultats */}
         <TestResultsTable
-          data={mockTestResults}
+          data={testResults}
           filters={filters}
-          loading={isLoadingTable}
           className="mt-6"
         />
       </div>

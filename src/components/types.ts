@@ -126,7 +126,7 @@ export interface KPITrackerProps {
   onRefresh?: () => Promise<number>;
 }
 
-interface TestResult {
+export interface TestResult {
   id: string;
   region: string;
   department: string;
