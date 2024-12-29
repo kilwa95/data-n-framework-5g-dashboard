@@ -1,8 +1,8 @@
 import { useState, useEffect, useMemo } from 'react';
-import { TestTrendLineChart } from './TestTrendLineChart';
-import { FrequencyType, TestTrendChartProps } from './types';
-import { FrequencySelector } from './FrequencySelector';
-import { formatters } from '../utils/dateFormatters';
+import { TestTrendLineChart } from '../TestTrendLineChart';
+import { FrequencyType, TestTrendChartProps } from '../types';
+import { FrequencySelector } from '../FrequencySelector';
+import { formatters } from '../../utils/dateFormatters';
 
 export const TestTrendChart = ({
   data,

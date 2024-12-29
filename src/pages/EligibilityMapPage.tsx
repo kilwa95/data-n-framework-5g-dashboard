@@ -1,16 +1,12 @@
 import { useState } from 'react';
-import { HierarchyLocationFilter } from '../components/HierarchyLocationFilter';
-import { EligibilityFilter } from '../components/EligibilityFilter';
 import { EligibilityMap } from '../components/EligibilityMap/EligibilityMap';
-import { KPITracker } from '../components/KPITracker';
-import { TestTrendChart } from '../components/TestTrendChart';
-import { TestResultsTable } from '../components/TestResultsTable';
+import { KPITracker } from '../components/KPITracker/KPITracker';
+import { TestTrendChart } from '../components/TestTrendChart/TestTrendChart';
+import { HierarchyLocationFilter } from '../components/HierarchyLocationFilter/HierarchyLocationFilter';
+import { EligibilityFilter } from '../components/EligibilityFilter/EligibilityFilter';
+import { TestResultsTable } from '../components/TestResultsTable/TestResultsTable';
+import { Location } from '../components/types';
 
-// Types pour les données de localisation
-interface Location {
-  id: string;
-  name: string;
-}
 
 // Types pour les filtres
 interface Filters {

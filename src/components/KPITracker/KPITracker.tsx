@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
-import { KPITrackerProps } from './types';
+import { KPITrackerProps } from '../types';
 
 export const KPITracker = ({
-  title = 'Nombre de tests d\'éligibilité 5G Box',
+  title = "Nombre de tests d'éligibilité 5G Box",
   value: initialValue,
   loading = false,
   formatter = (val) => new Intl.NumberFormat('fr-FR').format(val),

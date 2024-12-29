@@ -1,8 +1,8 @@
 import { useMemo, useState } from 'react';
 import { DataGrid, GridFilterModel } from '@mui/x-data-grid';
-import { TestResultsTableProps } from './types';
+import { TestResultsTableProps } from '../types';
+import { filterTestResults } from '../../utils/filterTestResults';
 import { getTestResultsColumns } from './TestResultsTableColumns';
-import { filterTestResults } from '../utils/filterTestResults';
 
 export const TestResultsTable = ({
   data,
