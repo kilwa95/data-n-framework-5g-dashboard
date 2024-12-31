@@ -1,7 +1,9 @@
+import { FeatureCollection } from 'geojson';
+
 export interface DateRangeSelectorProps {
   onChange: (range: { start: Date; end: Date }) => void;
   format?: string;
-  locale?: "fr" | "en";
+  locale?: 'fr' | 'en';
   className?: string;
   labels?: {
     from: string;
@@ -177,7 +179,7 @@ export interface TestResultsTableProps {
   className?: string;
 }
 
-export type FrequencyType = "hourly" | "daily" | "monthly";
+export type FrequencyType = 'hourly' | 'daily' | 'monthly';
 
 interface DataPoint {
   timestamp: string;
@@ -190,4 +192,32 @@ export interface TestTrendChartProps {
   onFrequencyChange: (frequency: FrequencyType) => void;
   loading?: boolean;
   className?: string;
+}
+
+export interface LayeredMapProps {
+  regionsData: FeatureCollection;
+  departmentsData: FeatureCollection;
+  testLocations: Array<{
+    id: string;
+    coordinates: [number, number];
+    data: Record<string, unknown>;
+  }>;
+  className?: string;
+  onTestMarkerClick?: (location: {
+    id: string;
+    coordinates: [number, number];
+    data: Record<string, unknown>;
+  }) => void;
+}
+export interface TestMarkersProps {
+  locations: Array<{
+    id: string;
+    coordinates: [number, number];
+    data: Record<string, unknown>;
+  }>;
+  onMarkerClick?: (location: {
+    id: string;
+    coordinates: [number, number];
+    data: Record<string, unknown>;
+  }) => void;
 }
