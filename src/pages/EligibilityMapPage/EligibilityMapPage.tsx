@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { EligibilityMap } from '../../components/EligibilityMap/EligibilityMap';
 import { TestTrendChart } from '../../components/TestTrendChart/TestTrendChart';
 import { TestResultsTable } from '../../components/TestResultsTable/TestResultsTable';
 import { Filters } from '../types';
@@ -10,6 +9,9 @@ import { FiltersSection } from './FiltersSection';
 import { TestResult } from '../../components/types';
 import { DateRangeSelector } from '../../components/DateRangeSelector/DateRangeSelector';
 import { subDays } from 'date-fns';
+import { RegionalKPIMap } from '../../components/RegionalKPIMap/RegionalKPIMap';
+import { useRegionalKPI } from '../../hooks/useRegionalKPI';
+import regionsGeoJSON from '../../data/france-regions.json';
 
 const testResults: TestResult[] = mockTestResults.map((result) => ({
   ...result,
@@ -64,6 +66,8 @@ export const EligibilityMapPage = () => {
     }));
   };
 
+  const regionalKPIData = useRegionalKPI(testResults);
+
   return (
     <div className="min-h-screen bg-[#F0F2F5] dark:bg-[#18191A] p-6">
       <div className="max-w-7xl mx-auto space-y-6">
@@ -96,12 +100,19 @@ export const EligibilityMapPage = () => {
         />
 
         {/* Carte */}
-        <EligibilityMap
-          filters={{
-            ...filters.location,
-            eligibility: filters.eligibility,
-          }}
+        <RegionalKPIMap
+          regionsData={regionsGeoJSON}
+          kpiData={regionalKPIData}
           className="h-[600px] rounded-lg shadow-lg"
+          onRegionClick={(regionId) => {
+            setFilters((prev) => ({
+              ...prev,
+              location: {
+                ...prev.location,
+                region: { id: regionId, name: '' },
+              },
+            }));
+          }}
         />
 
         {/* Table des résultats */}
