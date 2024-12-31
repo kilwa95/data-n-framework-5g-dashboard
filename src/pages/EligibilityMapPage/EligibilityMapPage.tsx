@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { TestTrendChart } from '../../components/TestTrendChart/TestTrendChart';
 import { TestResultsTable } from '../../components/TestResultsTable/TestResultsTable';
 import { Filters } from '../types';
@@ -12,6 +12,7 @@ import { subDays } from 'date-fns';
 import { RegionalKPIMap } from '../../components/RegionalKPIMap/RegionalKPIMap';
 import { useRegionalKPI } from '../../hooks/useRegionalKPI';
 import regionsGeoJSON from '../../data/france-regions.json';
+import { filterTestResults } from '../../utils/filterTestResults';
 
 const testResults: TestResult[] = mockTestResults.map((result) => ({
   ...result,
@@ -21,7 +22,7 @@ const testResults: TestResult[] = mockTestResults.map((result) => ({
 }));
 
 export const EligibilityMapPage = () => {
-  // État des filtres
+  // Filters state
   const [filters, setFilters] = useState<Filters>({
     location: {
       region: null,
@@ -42,22 +43,39 @@ export const EligibilityMapPage = () => {
     },
   });
 
-  // État pour les KPIs
+  // KPIs state
   const [totalTests, setTotalTests] = useState(0);
   const [eligibleTests, setEligibleTests] = useState(0);
 
-  // Nouveaux états pour le graphique de tendance
+  // Trend chart state
   const [frequency, setFrequency] = useState<'hourly' | 'daily' | 'monthly'>(
     'daily'
   );
+  const [trendData, setTrendData] = useState([]);
 
-  // Gestionnaire de mise à jour des KPIs
-  const updateKPIs = async (): Promise<number> => {
-    const newTotal = Math.floor(Math.random() * 10000);
-    setTotalTests(newTotal);
-    setEligibleTests(Math.floor(newTotal * 0.7));
-    return newTotal;
-  };
+  // Filter the test results based on current filters
+  const filteredTestResults = useCallback(() => {
+    return filterTestResults(testResults, {
+      location: filters.location,
+      eligibility: filters.eligibility,
+      dateRange: filters.dateRange,
+    });
+  }, [filters]);
+
+  // Update KPIs based on filtered data
+  useEffect(() => {
+    const filtered = filteredTestResults();
+    setTotalTests(filtered.length);
+    setEligibleTests(filtered.filter((test) => test.can_subscribe).length);
+  }, [filteredTestResults]);
+
+  // Update trend data based on filtered results
+  useEffect(() => {
+    // Here you would aggregate the filtered data based on frequency
+    // This is a placeholder - implement actual aggregation logic
+    const aggregatedData = [];
+    setTrendData(aggregatedData);
+  }, [filteredTestResults, frequency]);
 
   const handleDateRangeChange = (range: { start: Date; end: Date }) => {
     setFilters((prev) => ({
@@ -66,7 +84,7 @@ export const EligibilityMapPage = () => {
     }));
   };
 
-  const regionalKPIData = useRegionalKPI(testResults);
+  const regionalKPIData = useRegionalKPI(filteredTestResults());
 
   return (
     <div className="min-h-screen bg-[#F0F2F5] dark:bg-[#18191A] p-6">
@@ -76,12 +94,20 @@ export const EligibilityMapPage = () => {
         <KPISection
           totalTests={totalTests}
           eligibleTests={eligibleTests}
-          updateKPIs={updateKPIs}
+          updateKPIs={async () => {
+            const filtered = filteredTestResults();
+            const total = filtered.length;
+            setTotalTests(total);
+            setEligibleTests(
+              filtered.filter((test) => test.can_subscribe).length
+            );
+            return total;
+          }}
         />
 
         <div className="grid grid-cols-1 gap-6">
           <TestTrendChart
-            data={[]}
+            data={trendData}
             frequency={frequency}
             onFrequencyChange={setFrequency}
           />
@@ -99,7 +125,6 @@ export const EligibilityMapPage = () => {
           mockLocationData={mockLocationData}
         />
 
-        {/* Carte */}
         <RegionalKPIMap
           regionsData={regionsGeoJSON}
           kpiData={regionalKPIData}
@@ -110,14 +135,15 @@ export const EligibilityMapPage = () => {
               location: {
                 ...prev.location,
                 region: { id: regionId, name: '' },
+                department: null,
+                city: null,
               },
             }));
           }}
         />
 
-        {/* Table des résultats */}
         <TestResultsTable
-          data={testResults}
+          data={filteredTestResults()}
           filters={filters}
           className="mt-6"
         />
