@@ -8,6 +8,7 @@ import { KPISection } from './KPISection';
 import { TestTrendChart } from '../../components/TestTrendChart/TestTrendChart';
 import { DataPoint, HierarchyData } from '../../components/types';
 import { HierarchyLocationFilter } from '../../components/HierarchyLocationFilter/HierarchyLocationFilter';
+import { Map } from '../../components/Map/Map';
 
 export const EligibilityMapPage = () => {
   // Filters state
@@ -214,15 +215,7 @@ export const EligibilityMapPage = () => {
             }))
           }
         />
-
-        <div className="p-4 bg-white dark:bg-[#242526] rounded-lg shadow-md border border-gray-200 dark:border-gray-700">
-          <h3 className="text-[13px] font-medium text-[#65676B] dark:text-gray-400 mb-4">
-            État des filtres
-          </h3>
-          <pre className="text-sm overflow-x-auto">
-            {JSON.stringify(filters, null, 2)}
-          </pre>
-        </div>
+        <Map filters={filters} className="h-[600px] rounded-lg shadow-lg" />
       </div>
     </div>
   );
