@@ -6,7 +6,8 @@ import { subDays } from 'date-fns';
 import { EligibilityFilter } from '../../components/EligibilityFilter/EligibilityFilter';
 import { KPISection } from './KPISection';
 import { TestTrendChart } from '../../components/TestTrendChart/TestTrendChart';
-import { DataPoint } from '../../components/types';
+import { DataPoint, HierarchyData } from '../../components/types';
+import { HierarchyLocationFilter } from '../../components/HierarchyLocationFilter/HierarchyLocationFilter';
 
 export const EligibilityMapPage = () => {
   // Filters state
@@ -30,6 +31,11 @@ export const EligibilityMapPage = () => {
     },
   });
   const [chartData, setChartData] = useState<DataPoint[]>([]);
+  const [locationData, setLocationData] = useState<HierarchyData>({
+    regions: [],
+    departments: {},
+    cities: {},
+  });
 
   useEffect(() => {
     const data = [
@@ -130,7 +136,35 @@ export const EligibilityMapPage = () => {
         value: 924,
       },
     ];
+
     setChartData(data);
+  }, []);
+
+  useEffect(() => {
+    const data: HierarchyData = {
+      cities: {
+        d1: [{ id: 'c1', name: 'Paris' }],
+        d2: [
+          { id: 'c2', name: 'Nanterre' },
+          { id: 'c3', name: 'Boulogne-Billancourt' },
+        ],
+      },
+      departments: {
+        r1: [
+          { id: 'd1', name: 'Paris' },
+          { id: 'd2', name: 'Hauts-de-Seine' },
+        ],
+        r2: [
+          { id: 'd3', name: 'Rhône' },
+          { id: 'd4', name: 'Isère' },
+        ],
+      },
+      regions: [
+        { id: 'r1', name: 'Île-de-France' },
+        { id: 'r2', name: 'Auvergne-Rhône-Alpes' },
+      ],
+    };
+    setLocationData(data);
   }, []);
 
   return (
@@ -170,6 +204,25 @@ export const EligibilityMapPage = () => {
             }))
           }
         />
+
+        <HierarchyLocationFilter
+          initialData={locationData}
+          onChange={(location) =>
+            setFilters((prev) => ({
+              ...prev,
+              location: location as Filters['location'],
+            }))
+          }
+        />
+
+        <div className="p-4 bg-white dark:bg-[#242526] rounded-lg shadow-md border border-gray-200 dark:border-gray-700">
+          <h3 className="text-[13px] font-medium text-[#65676B] dark:text-gray-400 mb-4">
+            État des filtres
+          </h3>
+          <pre className="text-sm overflow-x-auto">
+            {JSON.stringify(filters, null, 2)}
+          </pre>
+        </div>
       </div>
     </div>
   );
