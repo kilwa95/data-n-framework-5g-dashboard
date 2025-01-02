@@ -181,7 +181,7 @@ export interface TestResultsTableProps {
 
 export type FrequencyType = 'hourly' | 'daily' | 'monthly';
 
-interface DataPoint {
+export interface DataPoint {
   timestamp: string;
   value: number;
 }
