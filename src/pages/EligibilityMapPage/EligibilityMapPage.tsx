@@ -37,6 +37,8 @@ export const EligibilityMapPage = () => {
     departments: {},
     cities: {},
   });
+  const [testData, setTestData] = useState([]);
+  const [sitesData, setSitesData] = useState([]);
 
   useEffect(() => {
     const data = [
@@ -168,6 +170,54 @@ export const EligibilityMapPage = () => {
     setLocationData(data);
   }, []);
 
+  useEffect(() => {
+    const data = [
+      {
+        id: 'test1',
+        coordinates: [48.8566, 2.3522], // Paris
+        eligibility: true,
+        region: 'r1',
+        department: 'd1',
+        city: 'c1',
+        details: {
+          is_ztd: true,
+          foundCoverage: true,
+          sector_capacity: 'High',
+          active_4g_cells: 3,
+          active_5g_cells: 2,
+        },
+      },
+      {
+        id: 'test2',
+        coordinates: [45.7578, 4.832], // Lyon
+        eligibility: false,
+        region: 'r2',
+        department: 'd3',
+        city: 'c4',
+        details: {
+          is_ztd: false,
+          foundCoverage: true,
+          sector_capacity: 'Medium',
+          active_4g_cells: 2,
+          active_5g_cells: 0,
+        },
+      },
+    ];
+    setTestData([data]);
+  }, []);
+
+  useEffect(() => {
+    const data = [
+      { id: 'site1', coordinates: [48.8566, 2.3522], status: 'active' },
+      { id: 'site2', coordinates: [45.7578, 4.832], status: 'inactive' },
+      { id: 'site3', coordinates: [43.5042, 5.4636], status: 'maintenance' },
+      { id: 'site4', coordinates: [48.8566, 2.3522], status: 'active' },
+      { id: 'site5', coordinates: [45.7578, 4.832], status: 'inactive' },
+      { id: 'site6', coordinates: [43.5042, 5.4636], status: 'maintenance' },
+    ];
+    setSitesData(data);
+  }, []);
+
   return (
     <div className="min-h-screen bg-[#F0F2F5] dark:bg-[#18191A] p-6">
       <div className="max-w-7xl mx-auto space-y-6">
@@ -215,7 +265,12 @@ export const EligibilityMapPage = () => {
             }))
           }
         />
-        <Map filters={filters} className="h-[600px] rounded-lg shadow-lg" />
+        <Map
+          filters={filters}
+          className="h-[600px] rounded-lg shadow-lg"
+          testData={testData}
+          sitesData={sitesData}
+        />
       </div>
     </div>
   );
