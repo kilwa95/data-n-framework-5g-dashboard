@@ -58,6 +58,12 @@ export const EligibilityMapPage = () => {
   const [testData, setTestData] = useState([]);
   const [sitesData, setSitesData] = useState([]);
 
+  // Add new state for KPI values
+  const [kpiValues, setKpiValues] = useState({
+    totalTests: 0,
+    eligibleTests: 0,
+  });
+
   useEffect(() => {
     const data = [
       {
@@ -159,6 +165,14 @@ export const EligibilityMapPage = () => {
     ];
 
     setChartData(data);
+
+    // Calculate KPIs from chart data
+    const total = data.reduce((sum, point) => sum + point.value, 0);
+    const eligible = Math.floor(total * 0.7); // Example: 70% eligibility rate
+    setKpiValues({
+      totalTests: total,
+      eligibleTests: eligible,
+    });
   }, []);
 
   useEffect(() => {
@@ -212,14 +226,25 @@ export const EligibilityMapPage = () => {
         <PageTitle title="Carte d'éligibilité 5G Box" />
 
         <KPISection
-          totalTests={0}
-          eligibleTests={0}
-          updateKPIs={() => Promise.resolve(0)}
+          totalTests={kpiValues.totalTests}
+          eligibleTests={kpiValues.eligibleTests}
+          updateKPIs={() => Promise.resolve(kpiValues.totalTests)}
         />
         <TestTrendChart
           data={chartData}
           frequency={'hourly'}
-          onFrequencyChange={() => {}}
+          onFrequencyChange={() => {
+            // Recalculate KPIs when frequency changes
+            const total = chartData.reduce(
+              (sum, point) => sum + point.value,
+              0
+            );
+            const eligible = Math.floor(total * 0.7);
+            setKpiValues({
+              totalTests: total,
+              eligibleTests: eligible,
+            });
+          }}
         />
 
         <DateRangeSelector
