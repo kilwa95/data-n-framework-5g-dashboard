@@ -33,9 +33,27 @@ export const EligibilityMapPage = () => {
   });
   const [chartData, setChartData] = useState<DataPoint[]>([]);
   const [locationData, setLocationData] = useState<HierarchyData>({
-    regions: [],
-    departments: {},
-    cities: {},
+    cities: {
+      d1: [{ id: 'c1', name: 'Paris' }],
+      d2: [
+        { id: 'c2', name: 'Nanterre' },
+        { id: 'c3', name: 'Boulogne-Billancourt' },
+      ],
+    },
+    departments: {
+      r1: [
+        { id: 'd1', name: 'Paris' },
+        { id: 'd2', name: 'Hauts-de-Seine' },
+      ],
+      r2: [
+        { id: 'd3', name: 'Rhône' },
+        { id: 'd4', name: 'Isère' },
+      ],
+    },
+    regions: [
+      { id: 'r1', name: 'Île-de-France' },
+      { id: 'r2', name: 'Auvergne-Rhône-Alpes' },
+    ],
   });
   const [testData, setTestData] = useState([]);
   const [sitesData, setSitesData] = useState([]);
@@ -144,33 +162,6 @@ export const EligibilityMapPage = () => {
   }, []);
 
   useEffect(() => {
-    const data: HierarchyData = {
-      cities: {
-        d1: [{ id: 'c1', name: 'Paris' }],
-        d2: [
-          { id: 'c2', name: 'Nanterre' },
-          { id: 'c3', name: 'Boulogne-Billancourt' },
-        ],
-      },
-      departments: {
-        r1: [
-          { id: 'd1', name: 'Paris' },
-          { id: 'd2', name: 'Hauts-de-Seine' },
-        ],
-        r2: [
-          { id: 'd3', name: 'Rhône' },
-          { id: 'd4', name: 'Isère' },
-        ],
-      },
-      regions: [
-        { id: 'r1', name: 'Île-de-France' },
-        { id: 'r2', name: 'Auvergne-Rhône-Alpes' },
-      ],
-    };
-    setLocationData(data);
-  }, []);
-
-  useEffect(() => {
     const data = [
       {
         id: 'test1',
@@ -203,7 +194,7 @@ export const EligibilityMapPage = () => {
         },
       },
     ];
-    setTestData([data]);
+    setTestData(data);
   }, []);
 
   useEffect(() => {
@@ -211,9 +202,6 @@ export const EligibilityMapPage = () => {
       { id: 'site1', coordinates: [48.8566, 2.3522], status: 'active' },
       { id: 'site2', coordinates: [45.7578, 4.832], status: 'inactive' },
       { id: 'site3', coordinates: [43.5042, 5.4636], status: 'maintenance' },
-      { id: 'site4', coordinates: [48.8566, 2.3522], status: 'active' },
-      { id: 'site5', coordinates: [45.7578, 4.832], status: 'inactive' },
-      { id: 'site6', coordinates: [43.5042, 5.4636], status: 'maintenance' },
     ];
     setSitesData(data);
   }, []);
